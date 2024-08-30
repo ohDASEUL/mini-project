@@ -208,3 +208,54 @@ body {
 .additional-icons img:last-child {
   margin-bottom: 0;
 }
+
+
+/* 다크 모드 스타일 */
+body.dark-mode {
+  background-color: white;
+}
+body.dark-mode .contents {
+  background-color: black;
+  color: white;
+}
+
+body.dark-mode .title {
+  color: white;
+}
+
+body.dark-mode .day_section{
+  background-color: white;
+  color: black;
+}
+
+body.dark-mode .dropdown-btn {
+  background-color: white;
+  color: black;
+}
+
+body.dark-mode .arrow {
+  border-color: black;
+}
+
+body.dark-mode .dropdown-content {
+  background-color: white;
+  color: black;
+}
+
+body.dark-mode .dropdown-content a {
+  color: black;
+}
+
+body.dark-mode #confirmBtn {
+  background-color: white;
+  color: black;
+}
+
+body.dark-mode .todolist .item {
+  background-color: white;
+  color: black;
+}
+
+body.dark-mode .todolist input:checked + label {
+  color: #888;
+}

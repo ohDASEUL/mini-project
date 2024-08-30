@@ -51,6 +51,7 @@ addMoreBtn.addEventListener("click", (e) => {
   // TODO: 더보기 기능 구현
 });
 
+// 즐겨찾기(별표) 토글 기능
 document.querySelectorAll(".star").forEach((star) => {
   star.addEventListener("click", function () {
     if (this.src.includes("full_star.svg")) {
@@ -61,36 +62,59 @@ document.querySelectorAll(".star").forEach((star) => {
   });
 });
 
-document.querySelectorAll(".system_mode").forEach((button) => {
-  button.addEventListener("click", function () {
-    const img = this.querySelector(".dark");
-    if (img.src.includes("dark.svg")) {
-      img.src = "icon/light.svg";
-    } else {
-      img.src = "icon/dark.svg";
-    }
-  });
-});
+// 다크 모드 토글 함수
+function toggleDarkMode() {
+  const body = document.body;
+  const darkModeButton = document.querySelector('.system_mode img');
+  const plusIcon = document.querySelector('.floating-button img');
+  const todoWriteIcon = document.querySelector('.additional-icons img:first-child');
+  const todoSearchIcon = document.querySelector('.additional-icons img:last-child');
 
+  // 다크 모드 클래스 토글
+  body.classList.toggle('dark-mode');
+
+  // 다크 모드에 따라 아이콘 변경
+  if (body.classList.contains('dark-mode')) {
+    darkModeButton.src = 'icon/light.svg';
+    plusIcon.src = plusIcon.src.includes('x.svg') ? 'icon/dark_x.svg' : 'icon/dark_plus.svg';
+    todoWriteIcon.src = 'icon/dark_todo_write.svg';
+    todoSearchIcon.src = 'icon/dark_todo_serch.svg';
+  } else {
+    darkModeButton.src = 'icon/dark.svg';
+    plusIcon.src = plusIcon.src.includes('dark_x.svg') ? 'icon/x.svg' : 'icon/plus.svg';
+    todoWriteIcon.src = 'icon/todo_write.svg';
+    todoSearchIcon.src = 'icon/todo_serch.svg';
+  }
+}
+
+// 다크 모드 버튼에 이벤트 리스너 추가
+document.querySelector('.system_mode').addEventListener('click', toggleDarkMode);
+
+// 플로팅 버튼 클릭 이벤트 리스너
 document.querySelector(".floating-button").addEventListener("click", function () {
   const additionalIcons = document.querySelector(".additional-icons");
   const plusIcon = this.querySelector(".plus");
+  const isDarkMode = document.body.classList.contains('dark-mode');
   
-  if (plusIcon.src.includes("x.svg")) {
-    plusIcon.src = "icon/plus.svg";
+  // 플러스/X 아이콘 토글 및 추가 아이콘 표시/숨김
+  if (plusIcon.src.includes("x.svg") || plusIcon.src.includes("dark_x.svg")) {
+    plusIcon.src = isDarkMode ? "icon/dark_plus.svg" : "icon/plus.svg";
     additionalIcons.style.display = "none";
   } else {
-    plusIcon.src = "icon/x.svg";
+    plusIcon.src = isDarkMode ? "icon/dark_x.svg" : "icon/x.svg";
     additionalIcons.style.display = "flex";
   }
 });
 
+// 삭제 아이콘에 대한 이벤트 리스너
 const trashIcons = document.querySelectorAll(".trash");
 
 trashIcons.forEach(trashIcon => {
   trashIcon.addEventListener('click', function() {
+    // 사용자에게 삭제 확인
     const userConfirmed = confirm('정말 삭제하시겠습니까?');
     if (userConfirmed) {
+      // 확인 시 해당 항목 숨김 처리
       this.parentElement.style.display = 'none';
     }
   });
