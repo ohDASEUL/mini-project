@@ -38,7 +38,7 @@ h1 {
     background-color: black;
   }
   
-  .todolist {
+  .contents {
     background-color: white;
   }
   
@@ -67,6 +67,7 @@ h1 {
     position: relative;
     display: inline-block;
     margin-top: 34px;
+    margin-bottom: 10px;
     margin-left: 84px;
   }
   
@@ -103,6 +104,7 @@ h1 {
     padding: 10px;
     border-radius: 10px;
     margin-top: 10px;
+    border: 1px solid black;
   }
   
   .filter-options {
@@ -131,3 +133,35 @@ h1 {
   .show {
     display: block;
   }
+
+  .todolist {
+    margin: 0 84px;
+  }
+  
+  .todolist .item {
+    border: 5px solid black;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    padding: 33px 14px;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .todolist input {
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+    margin-right: 10px;
+  }
+  
+  .todolist label {
+    flex: 1;
+    cursor: pointer;
+  }
+  
+  .todolist input:checked + label {
+    text-decoration: line-through;
+    color: #888;
+  }
+
