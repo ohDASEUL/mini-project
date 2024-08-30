@@ -3,7 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
+    <link
+      rel="stylesheet"
+      as="style"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css"
+    />
     <link rel="stylesheet" href="styles.css" />
     <title>To Do List</title>
   </head>
@@ -36,10 +41,22 @@
           <button class="dropdown-btn">필터<span class="arrow"></span></button>
           <div class="dropdown-content" id="todoDropdown">
             <div class="filter-options">
-              <label><input type="checkbox" name="filter" value="업무"> 업무</label>
-              <label><input type="checkbox" name="filter" value="취미"> 취미</label>
-              <label><input type="checkbox" name="filter" value="청소"> 청소</label>
-              <label><input type="checkbox" name="filter" value="집안일"> 집안일</label>
+              <label
+                ><input type="checkbox" name="filter" value="업무" />
+                업무</label
+              >
+              <label
+                ><input type="checkbox" name="filter" value="취미" />
+                취미</label
+              >
+              <label
+                ><input type="checkbox" name="filter" value="청소" />
+                청소</label
+              >
+              <label
+                ><input type="checkbox" name="filter" value="집안일" />
+                집안일</label
+              >
               <a href="#" id="addMore">+ 더보기</a>
             </div>
             <button id="confirmBtn">확인</button>
@@ -47,9 +64,24 @@
         </div>
 
         <div class="todolist">
-          <div class="item"><input type="checkbox" id="task1"><label for="task1">분리수거 하기</label></div>
-          <div class="item"><input type="checkbox" id="task2"><label for="task2">식물 물 주기</label></div>
-          <div class="item"><input type="checkbox" id="task3"><label for="task3">반찬 만들기</label></div>
+          <div class="item">
+            <input type="checkbox" id="task1" />
+            <label for="task1">분리수거 하기</label>
+            <img src="icon/star.svg" alt="star" class="icon star" />
+            <img src="icon/trash.svg" alt="trash" class="icon trash" />
+          </div>
+          <div class="item">
+            <input type="checkbox" id="task2" />
+            <label for="task2">식물 물 주기</label>
+            <img src="icon/star.svg" alt="Star" class="icon star" />
+            <img src="icon/trash.svg" alt="Trash" class="icon trash" />
+          </div>
+          <div class="item">
+            <input type="checkbox" id="task3" />
+            <label for="task3">반찬 만들기</label>
+            <img src="icon/star.svg" alt="Star" class="icon star" />
+            <img src="icon/trash.svg" alt="Trash" class="icon trash" />
+          </div>
         </div>
       </div>
     </div>

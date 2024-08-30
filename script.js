@@ -47,3 +47,13 @@ addMoreBtn.addEventListener('click', (e) => {
   e.preventDefault(); // 기본 동작 방지 (링크 클릭 시 페이지 이동 방지)
   // TODO: 더보기 기능 구현
 });
+
+document.querySelectorAll('.star').forEach(star => {
+  star.addEventListener('click', function() {
+      if (this.src.includes('full_star.svg')) {
+          this.src = 'icon/star.svg';
+      } else {
+          this.src = 'icon/full_star.svg';
+      }
+  });
+});
