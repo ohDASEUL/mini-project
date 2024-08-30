@@ -57,3 +57,14 @@ document.querySelectorAll('.star').forEach(star => {
       }
   });
 });
+
+
+document.querySelectorAll('.plus').forEach(star => {
+  star.addEventListener('click', function() {
+      if (this.src.includes('x.svg')) {
+          this.src = 'icon/plus.svg';
+      } else {
+          this.src = 'icon/x.svg';
+      }
+  });
+});
