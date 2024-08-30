@@ -1,0 +1,31 @@
+/*Reset*/
+h1{
+    font-size: unset;
+    font-weight: unset;
+}
+
+/* Typography */
+:root{
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+}
+
+/* Layout */
+.l_wrapper{
+    margin: 28px auto;
+    padding: 0 578px;
+}
+
+/* Components */
+body{
+    background-color: black;
+}
+
+.todolist{
+    background-color: white;
+}
+
+.title{
+    font-size: 48px;
+    font-weight: bold;
+    text-align: center;
+}
