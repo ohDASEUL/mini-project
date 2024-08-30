@@ -61,6 +61,17 @@ document.querySelectorAll(".star").forEach((star) => {
   });
 });
 
+document.querySelectorAll(".system_mode").forEach((button) => {
+  button.addEventListener("click", function () {
+    const img = this.querySelector(".dark");
+    if (img.src.includes("dark.svg")) {
+      img.src = "icon/light.svg";
+    } else {
+      img.src = "icon/dark.svg";
+    }
+  });
+});
+
 document.querySelector(".floating-button").addEventListener("click", function () {
   const additionalIcons = document.querySelector(".additional-icons");
   const plusIcon = this.querySelector(".plus");
