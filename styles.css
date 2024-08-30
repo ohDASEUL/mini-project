@@ -173,7 +173,30 @@ body {
   cursor: pointer;
 }
 
+.floating {
+  position: relative;
+  float: right;
+}
+
 .floating-button {
-  float: right; 
-  margin: 20px; 
+  position: relative;
+  margin-right: 20px;
+}
+
+.additional-icons {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  bottom: 100%;
+  right: 20px;
+  padding: 5px;
+}
+
+.additional-icons img {
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.additional-icons img:last-child {
+  margin-bottom: 0;
 }

@@ -61,14 +61,17 @@ document.querySelectorAll(".star").forEach((star) => {
   });
 });
 
-document.querySelectorAll(".plus").forEach((star) => {
-  star.addEventListener("click", function () {
-    if (this.src.includes("x.svg")) {
-      this.src = "icon/plus.svg";
-    } else {
-      this.src = "icon/x.svg";
-    }
-  });
+document.querySelector(".floating-button").addEventListener("click", function () {
+  const additionalIcons = document.querySelector(".additional-icons");
+  const plusIcon = this.querySelector(".plus");
+  
+  if (plusIcon.src.includes("x.svg")) {
+    plusIcon.src = "icon/plus.svg";
+    additionalIcons.style.display = "none";
+  } else {
+    plusIcon.src = "icon/x.svg";
+    additionalIcons.style.display = "flex";
+  }
 });
 
 const trashIcons = document.querySelectorAll(".trash");
