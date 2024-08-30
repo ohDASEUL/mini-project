@@ -31,7 +31,21 @@
             <li>7</li>
           </ul>
         </div>
+        <div class="dropdown">
+          <button class="dropdown-btn">필터<span class="arrow"></span></button>
+          <div class="dropdown-content" id="todoDropdown">
+            <div class="filter-options">
+              <label><input type="checkbox" name="filter" value="업무"> 업무</label>
+              <label><input type="checkbox" name="filter" value="취미"> 취미</label>
+              <label><input type="checkbox" name="filter" value="청소"> 청소</label>
+              <label><input type="checkbox" name="filter" value="집안일"> 집안일</label>
+              <a href="#" id="addMore">+ 더보기</a>
+            </div>
+            <button id="confirmBtn">확인</button>
+          </div>
+        </div>
       </div>
     </div>
+    <script src="script.js"></script>
   </body>
 </html>
