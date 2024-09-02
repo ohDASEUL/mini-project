@@ -33,9 +33,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // 다크 모드 버튼에 이벤트 리스너 추가
-  // document
-  //   .querySelector(".system_mode")
-  //   .addEventListener("click", toggleDarkMode);
   const darkModeButton = document.querySelector(".system_mode");
   if (darkModeButton) {
     darkModeButton.addEventListener("click", toggleDarkMode);
