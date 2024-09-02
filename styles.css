@@ -1,11 +1,14 @@
 /*Reset*/
+
 h1 {
   font-size: unset;
+
   font-weight: unset;
 }
 
 ul {
   list-style-type: none;
+
   padding: unset;
 }
 
@@ -15,7 +18,9 @@ a {
 
 button {
   border: none;
+
   background-color: transparent;
+
   cursor: pointer;
 }
 
@@ -27,20 +32,29 @@ button {
     "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 }
 
-/* Layout */
-.l_wrapper {
-  margin: 28px auto;
-  padding: 0 578px;
-}
-
-/* Components */
 body {
   background-color: black;
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/*Layout*/
+.l_wrapper {
+  width: 768px;
+  height: 1024px;
+  margin: 28px 578px; /* 상하 28px, 좌우 578px의 여백 설정 */
+  background-color: white; /* 메인 콘텐츠 배경을 흰색으로 설정 */
+  box-sizing: border-box; /* 패딩과 보더를 포함하여 크기 계산 */
 }
 
 .contents {
-  background-color: white;
-  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative; /* 추가 */
 }
 
 .header {
@@ -72,143 +86,103 @@ body {
   font-weight: 400;
 }
 
-.dropdown {
-  position: relative;
-  display: inline-block;
-  margin-top: 34px;
-  margin-bottom: 10px;
-  margin-left: 84px;
-}
-
-.dropdown-btn {
-  background-color: #000;
-  color: white;
-  padding: 12px 16px;
-  font-size: 16px;
-  border-radius: 22px;
+.empty-state {
+  flex-grow: 1;
   display: flex;
+  justify-content: center;
   align-items: center;
-}
-
-.arrow {
-  border: solid white;
-  border-width: 0 2px 2px 0;
-  display: inline-block;
-  padding: 3px;
-  margin-left: 10px;
-  transform: rotate(45deg);
-  transition: transform 0.3s;
-}
-
-.arrow.up {
-  transform: rotate(-135deg);
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: white;
-  min-width: 185px;
-  z-index: 1;
-  padding: 10px;
-  border-radius: 10px;
-  margin-top: 10px;
-  border: 1px solid black;
-}
-
-.filter-options {
-  margin-bottom: 10px;
-}
-
-.dropdown-content label {
-  display: block;
-  padding: 5px 0;
-}
-
-.dropdown-content a {
-  color: black;
-  display: block;
-}
-
-#confirmBtn {
-  display: block;
-  margin-left: auto;
-  padding: 5px 10px;
-  background-color: #000;
-  color: white;
-  border-radius: 5px;
-}
-
-.show {
-  display: block;
-}
-
-.todolist {
-  margin: 0 84px;
-}
-
-.todolist .item {
-  border: 5px solid black;
-  border-radius: 10px;
-  margin-bottom: 30px;
-  padding: 33px 14px;
   font-size: 30px;
-  display: flex;
-  align-items: center;
-}
-
-.todolist input[type="checkbox"] {
-  width: 20px;
-  height: 20px;
-  border-radius: 6px;
-  margin-right: 10px;
-}
-
-.todolist label {
-  flex: 1;
-  cursor: pointer;
-}
-
-.todolist input:checked + label {
-  text-decoration: line-through;
-  color: #888;
-}
-
-.icon {
-  width: 24px;
-  height: 24px;
-  margin-left: 10px;
-  cursor: pointer;
 }
 
 .floating {
-  position: relative;
-  float: right;
-}
-
-.floating-button {
-  position: relative;
-  margin-right: 20px;
+  position: absolute;
+  bottom: 20px;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
 .additional-icons {
   display: none;
   flex-direction: column;
-  position: absolute;
-  bottom: 100%;
-  right: 20px;
-  padding: 5px;
+  margin-bottom: 5px;
 }
 
-.additional-icons img {
-  margin-bottom: 10px;
-  cursor: pointer;
+.additional-icons button,
+.floating-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5px;
 }
 
-.additional-icons img:last-child {
+.floating-button {
   margin-bottom: 0;
 }
 
+.todo-form {
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+}
+
+.todo-form h2 {
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+
+.form-group {
+  margin-bottom: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.form-group label {
+  align-self: flex-start;
+  margin-bottom: 5px;
+  font-weight: 400;
+  width: 50%;
+  text-align: left;
+  padding-left: 25%; /* label을 input/select와 같은 시작점에 맞춤 */
+  box-sizing: border-box;
+}
+
+.form-group input,
+.form-group select {
+  width: 50%;
+  padding: 10px;
+  font-size: 12px;
+  text-align: center;
+}
+
+.btn-group {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.cancel-btn,
+.submit-btn {
+  padding: 10px 40px;
+  border-radius: 10px;
+  border: 1px solid black;
+}
+
+.btn-group{
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.cancel-btn,
+.submit-btn{
+  padding: 10px 40px;
+  border-radius: 10px;
+  border: 1px solid black;
+}
 
 /* 다크 모드 스타일 */
 body.dark-mode {
@@ -251,11 +225,6 @@ body.dark-mode #confirmBtn {
   color: black;
 }
 
-body.dark-mode .todolist .item {
-  background-color: white;
-  color: black;
-}
-
-body.dark-mode .todolist input:checked + label {
-  color: #888;
+body.dark-mode .empty-state{
+  color: white;
 }
