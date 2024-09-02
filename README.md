@@ -1,25 +1,45 @@
 # 결과 예시(라이트버전)
-![light](./preview/light.png)
+## 메인화면
+### 아무것도 없는 메인화면
+![light-main](./preview/PC(1920_1080)%20라이트-초기.png)
+### TO DO LIST가 등록된 메인화면
+![Light-main2](./preview/PC(1920_1080)%20라이트%20-%20등록된%20TO%20DO%20LIST.png)
+## 부가적인 화면
+### 하단 플로팅 버튼 오픈
+![Light-footer-floating](./preview/PC(1920_1080)%20라이트-하단%20플로팅%20오픈.png)
+### 필터
+![Light-filter](./preview/PC(1920_1080)%20라이트%20-%20필터.png)
+## TO DO LIST 작성화면
+![Light-todolist-write](./preview/PC(1920_1080)%20라이트-TO%20DO%20LIST%20작성.png)
+## 달력
+![Light-calender](./preview/PC(1920_1080)%20라이트-달력.png)
+### 이전날짜 조회
+![Light-calender-before](./preview/PC(1920_1080)%20라이트-달력%20-%20이전%20날짜%20조회.png)
+### 현재날짜 조회
+![Light-calender-now](./preview/PC(1920_1080)%20라이트-%20달력%20-%20현재%20날짜%20조회.png)
 
 # 결과 예시(다크버전)
-![dark](./preview/dark.png)
+## 메인화면
+### 아무것도 없는 메인화면
+![Dark-main](./preview/PC(1920_1080)%20다크-초기.png)
+### TO DO LIST가 등록된 메인화면
+![Dark-main2](./preview/PC(1920_1080)%20다크%20-%20등록된%20TO%20DO%20LIST.png)
+### 하단 플로팅 버튼 오픈
+![Dark-footer-floating](./preview/PC(1920_1080)%20다크-하단%20플로팅%20오픈.png)
+### 필터
+![Dark-filter](./preview/PC(1920_1080)%20다크-%20필터.png)
+## TO DO LIST 작성화면
+![Dark-todolist-write](./preview/PC(1920_1080)%20다크-TO%20DO%20LIST%20작성.png)
+## 달력
+![Dark-calender](./preview/PC(1920_1080)%20다크-달력.png)
+### 이전날짜 조회
+![Dark-calender-before](./preview/PC(1920_1080)%20다크-달력%20-%20이전%20날짜%20조회.png)
+### 현재날짜 조회
+![Dark-calender-now](./preview/PC(1920_1080)%20다크-%20달력%20-%20현재%20날짜%20조회.png)
 
 # 현재 까지 진행상황
 ![preview](https://github.com/user-attachments/assets/559e7377-5a48-4be6-b995-ce788ae559d1)
 
-## 앞으로 진행해야할 것들
-1. 현재 날짜(요일) 표시하기
-2. 상단 타이틀 맨 왼쪽에 달력 아이콘 추가하기<br/>
-    2-1. 달력에서 오늘 날짜 표시하기
-    2-2. 지난 날짜에 작성한 to do list에서 완료된 to do list와 미완료된 to do list 표시하기
-3. to do list 쓰기 기능<br/>
-    3-1. 하단 플로팅 버튼에서 쓰기 버튼 눌러야 함
-    3-2. 해야 할 일, 카테고리
-4. to do list 검색 기능<br/>
-    4-1. 하단 플로팅 버튼에서 검색 기능 눌러야 함
-    4-2. 하면 정중앙에 검색바가 나타나는데 이때 뒤에 보이는 것들은 흐리게 처리되어 검색창만 나타나게
-5. to do list 필터 검색 기능<br/>
-    5-1. 필터 드롭다운 후 원하는 카테고리 체크 후 완료 누르면 해당 카테고리로 쓰여진 to do list만 보여지게
-6. 완료된 to do list를 따로 모아서 볼 수 있게 하기
-7. 1~6번의 요구사항을 충족하는 피그마 디자인 추가하기
+
+
 
