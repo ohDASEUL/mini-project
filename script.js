@@ -1,6 +1,9 @@
 // 할 일 목록을 지정할 배열
 let todos = [];
 
+// 카테고리 목록
+const categories = ['업무', '취미', '집안일', '기타'];
+
 // 로컬 스토리지에서 기존 할 일 목록 불러오기
 function loadTodos() {
   const stroedTodos = localStorage.getItem('todos');
@@ -37,13 +40,46 @@ function getDaysLeft(dueDate){
   return diffDays;
 }
 
+// 카테고리 옵션 생성 함수
+function createCategoryOptions() {
+  const categorySelect = document.getElementById('category-select');
+  const filterOptions = document.querySelector('.filter-options');
+
+  if (categorySelect) {
+    categorySelect.innerHTML = '<option value="">선택하세요</option>';
+    categories.forEach(category => {
+      const option = document.createElement('option');
+      option.value = category;
+      option.textContent = category;
+      categorySelect.appendChild(option);
+    });
+  }
+
+  if (filterOptions) {
+    filterOptions.innerHTML = '';
+    categories.forEach(category => {
+      const label = document.createElement('label');
+      label.innerHTML = `<input type="radio" name="filter" value="${category}"> ${category}`;
+      filterOptions.appendChild(label);
+    });
+  }
+}
+
+// 필터링 함수
+function filterTodos(category) {
+  if (category) {
+    return todos.filter(todo => todo.category === category);
+  }
+  return todos;
+}
+
 // 할 일 목록 표시
-function displayTodos() {
+function displayTodos(filteredTodos = todos) {
   const todoList = document.querySelector('.todolist');
   if(!todoList) return;
 
   todoList.innerHTML = '';
-  todos.forEach((todo, index)=>{
+  filteredTodos.forEach((todo, index)=>{
     const daysLeft = getDaysLeft(todo.date);
     const item = document.createElement('div');
     item.classList.add('item');
@@ -124,6 +160,7 @@ function toggleDarkMode() {
 // 초기화 함수
 function init(){
   loadTodos();
+  createCategoryOptions();
   displayTodos();
 
   // 다크 모드 버튼 이벤트 리스너
@@ -190,7 +227,6 @@ function init(){
   const dropdown = document.getElementById("todoDropdown");
   const arrow = document.querySelector(".arrow");
   const confirmBtn = document.getElementById("confirmBtn");
-  const addMoreBtn = document.getElementById("addMore");
 
   if(dropBtn && dropdown && arrow){
     const toggleDropdown = () => {
@@ -214,23 +250,26 @@ function init(){
       }
     });
   }
+  
   if (confirmBtn) {
-    confirmBtn.addEventListener("click", () => {
-      // TODO: 선택된 필터 처리 로직 구현
-      dropdown.classList.remove("show");
-      arrow.classList.remove("up");
+    confirmBtn.addEventListener('click', () => {
+      const selectedFilter = document.querySelector('input[name="filter"]:checked');
+      if (selectedFilter) {
+        const filteredTodos = filterTodos(selectedFilter.value);
+        displayTodos(filteredTodos);
+      } else {
+        displayTodos();
+      }
+      // 드롭다운 닫기
+      if (dropdown && arrow) {
+        dropdown.classList.remove('show');
+        arrow.classList.remove('up');
+      }
     });
   }
 
-  if (addMoreBtn) {
-    addMoreBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      // TODO: 더보기 기능 구현
-    });
-  }
+  
 }
 
 // DOM이 로드되면 초기화 함수 실행
 document.addEventListener('DOMContentLoaded', init);
-
-
