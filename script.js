@@ -1,3 +1,39 @@
+let = todos = [];
+
+function loadTodos() {
+  const storedTodos = localStorage.getItem("todos");
+  if (storedTodos) {
+    todos = JSON.parse(storedTodos);
+  }
+}
+
+function saveTodos() {
+  localStorage.setItem("todos", JSON.stringify(todos));
+}
+
+function addTodo(todo, category, date) {
+  const newTodo = {
+    id: Date.now(),
+    todo: todo,
+    category: category,
+    date: date,
+    completed: false,
+  };
+  todos.push(newTodo);
+  saveTodos();
+}
+function displayTodos() {
+  const todoList = document.getElementById("todo-list");
+  if (!todoList) return;
+
+  todoList.innerHTML = "";
+  todos.forEach((todo) => {
+    const li = document.createElement("li");
+    li.textContent = `${todo.todo} - ${todo.category} - ${todo.date}`;
+    todoList.appendChild(li);
+  });
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   // 다크 모드 토글 함수
   function toggleDarkMode() {
@@ -64,6 +100,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  loadTodos();
+  displayTodos();
+
   // 등록 버튼 이벤트 리스너
   const todoSubmitButton = document.querySelector(".todo-submit-button");
   if (todoSubmitButton) {
@@ -83,6 +122,13 @@ document.addEventListener("DOMContentLoaded", function () {
         alert("모든 필드를 입력해 주세요.");
         return;
       }
+
+      addTodo(todoInput.value, categorySelect.value, dateInput.value);
+      displayTodos();
+
+      todoInput.value = "";
+      categorySelect.value = "";
+      dateInput.value = "";
 
       alert("등록되었습니다");
       window.location.href = "main.html";
