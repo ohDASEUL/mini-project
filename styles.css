@@ -256,21 +256,44 @@ body {
   border-radius: 5px;
 }
 
-.todolist .item .category {
-  background-color: #f0f0f0;
-  padding: 2px 5px;
-  border-radius: 3px;
-  font-size: 14px;
+.todolist {
+  margin: 0 84px;
+}
+
+
+.todolist .item{
+  border: 5px solid black;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  padding: 30px 15px;
+  display: flex;
+  align-items: center;
+}
+
+.todolist input[type="checkbox"]{
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
   margin-right: 10px;
 }
 
-.todolist .item .days-left {
-  font-size: 14px;
+.todolist label{
+  flex: 1;
+}
+
+.todolist input:checked + label{
+  text-decoration: line-through;
   color: #888;
-  margin-left: auto;
-  margin-right: 10px;
 }
 
+.category{
+  margin-right: 5px;
+  border: 1px solid black;
+}
+
+.icon{
+  margin-left: 10px;
+}
 
 /* 다크 모드 스타일 */
 body.dark-mode {

@@ -48,9 +48,9 @@ function displayTodos() {
     const item = document.createElement('div');
     item.classList.add('item');
     item.innerHTML = `
-      <input type="checkbox" id="task${index}" ${todo.completed ? 'checked' : ''}/>
       <span class="category">${todo.category}</span>
-      <label for="task${index}>${todo.todo}</label>
+      <input type="checkbox" id="task${index}" ${todo.completed ? 'checked' : ''}/>
+      <label for="task${index}">${todo.todo}</label>
       <span class="days-left">${daysLeft}일 남음</span>
       <img src="icon/${todo.starred? 'full_star.svg' : 'star.svg'}" alt="star" class="icon star" data-id="${todo.id}"/>
       <img src="icon/trash.svg" alt="trash" class="icon trash" data-id="${todo.id}"/>
@@ -58,17 +58,18 @@ function displayTodos() {
     todoList.appendChild(item);
   })
   // 이벤트 리스너 추가
-  addEventListener();
+  addEventListeners();
 }
 
 // 이벤트 리스너 추가
-function addEventListener() {
+function addEventListeners() {
   // 체크박스 이벤트
   document.querySelectorAll('.todolist input[type="checkbox"]').forEach((checkbox)=>{
     checkbox.addEventListener('change', function(){
       const todoId = this.id.replace('task', '');
       todos[todoId].completed = this.checked;
       saveTodos();
+      displayTodos();
     })
   })
 
@@ -80,6 +81,7 @@ function addEventListener() {
       todo.starred = !todo.starred;
       this.src = todo.starred ? 'icon/full_star.svg' : 'icon/star.svg';
       saveTodos();
+      displayTodos();
     })
   })
 
