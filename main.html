@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      as="style"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <title>To Do List</title>
+  </head>
+  <body>
+    <div class="l_wrapper">
+      <div class="contents">
+        <header class="header">
+          <h1 class="title"><a href="index.html">TO DO LIST</a></h1>
+          <button class="system_mode">
+            <img src="./icon/dark.svg" alt="Icon" class="dark" />
+          </button>
+        </header>
+        <div class="day_section">
+          <ul>
+            <li>월</li>
+            <li>화</li>
+            <li>수</li>
+            <li>목</li>
+            <li>금</li>
+            <li>토</li>
+            <li>일</li>
+          </ul>
+          <ul>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+            <li>7</li>
+          </ul>
+        </div>
+
+        <div class="dropdown">
+          <button class="dropdown-btn">필터<span class="arrow"></span></button>
+          <div class="dropdown-content" id="todoDropdown">
+            <div class="filter-options">
+              <label
+                ><input type="checkbox" name="filter" value="업무" />
+                업무</label
+              >
+              <label
+                ><input type="checkbox" name="filter" value="취미" />
+                취미</label
+              >
+              <label
+                ><input type="checkbox" name="filter" value="청소" />
+                청소</label
+              >
+              <label
+                ><input type="checkbox" name="filter" value="집안일" />
+                집안일</label
+              >
+              <a href="#" id="addMore">+ 더보기</a>
+            </div>
+            <button id="confirmBtn">확인</button>
+          </div>
+        </div>
+
+        <div class="empty-state">
+          <p>등록된 TO DO LIST가 없습니다.</p>
+        </div>
+
+        <div class="floating">
+          <div class="additional-icons">
+            <button>
+              <img src="icon/light_calendar.svg" alt="Calendar" />
+            </button>
+            <button class="todo-write-button">
+              <img src="icon/light_todo_write.svg" alt="Todo Write" />
+            </button>
+          </div>
+          <button class="floating-button">
+            <img src="icon/plus.svg" alt="Plus" class="plus" />
+          </button>
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

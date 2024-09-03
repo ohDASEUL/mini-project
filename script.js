@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const todoSubmitButton = document.querySelector(".todo-submit-button");
   if (todoSubmitButton) {
     todoSubmitButton.addEventListener("click", function (e) {
-      e.preventDefault(); 
+      e.preventDefault();
 
       const todoInput = document.getElementById("todo-input");
       const categorySelect = document.getElementById("category-select");
@@ -85,7 +85,64 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       alert("등록되었습니다");
-      window.location.href = "index.html";
+      window.location.href = "main.html";
+    });
+  }
+  // 드롭다운 관련 코드 추가
+  const dropBtn = document.querySelector(".dropdown-btn");
+  const dropdown = document.getElementById("todoDropdown");
+  const arrow = document.querySelector(".arrow");
+  const confirmBtn = document.getElementById("confirmBtn");
+  const addMoreBtn = document.getElementById("addMore");
+
+  if (dropBtn && dropdown && arrow) {
+    const toggleDropdown = () => {
+      dropdown.classList.toggle("show");
+      arrow.classList.toggle("up");
+    };
+
+    dropBtn.addEventListener("click", toggleDropdown);
+
+    const stopPropagation = (e) => {
+      e.stopPropagation();
+    };
+
+    dropdown.addEventListener("click", stopPropagation);
+
+    window.addEventListener("click", (event) => {
+      if (
+        !event.target.matches(".dropdown-btn") &&
+        !event.target.matches(".arrow")
+      ) {
+        if (dropdown.classList.contains("show")) {
+          dropdown.classList.remove("show");
+          arrow.classList.remove("up");
+        }
+      }
+    });
+  }
+
+  if (confirmBtn) {
+    confirmBtn.addEventListener("click", () => {
+      dropdown.classList.remove("show");
+      arrow.classList.remove("up");
+    });
+  }
+  // 확인 버튼과 추가 버튼에 대한 이벤트 리스너 (필요한 경우)
+  if (confirmBtn) {
+    confirmBtn.addEventListener("click", () => {
+      // TODO: 선택된 필터 처리 로직 구현
+      // 드롭다운 닫기
+      dropdown.classList.remove("show");
+      arrow.classList.remove("up");
+    });
+  }
+
+  if (addMoreBtn) {
+    // 더보기 버튼 클릭 이벤트 리스너
+    addMoreBtn.addEventListener("click", (e) => {
+      e.preventDefault(); // 기본 동작 방지 (링크 클릭 시 페이지 이동 방지)
+      // TODO: 더보기 기능 구현
     });
   }
 });
