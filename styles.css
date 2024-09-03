@@ -36,7 +36,7 @@ button {
 body {
   background-color: black;
   margin: 0;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -44,18 +44,21 @@ body {
 
 /*Layout*/
 .l_wrapper {
-  width: 768px;
-  height: 1024px;
-  margin: 28px 578px; /* 상하 28px, 좌우 578px의 여백 설정 */
-  background-color: white; /* 메인 콘텐츠 배경을 흰색으로 설정 */
-  box-sizing: border-box; /* 패딩과 보더를 포함하여 크기 계산 */
+  width: 100%;
+  max-width: 768px;
+  height: 100vh;
+  max-height: 1024px;
+  margin: 0 auto;
+  background-color: white;
+  box-sizing: border-box;
+  overflow-y: auto;
 }
 
 .contents {
   display: flex;
   flex-direction: column;
   height: 100%;
-  position: relative; /* 추가 */
+  position: relative;
 }
 
 .header {
@@ -65,8 +68,9 @@ body {
   padding: 10px;
 }
 
+
 .title {
-  font-size: 48px;
+  font-size: 2.5rem;
   flex: 1;
   font-weight: bold;
   text-align: center;
@@ -336,3 +340,60 @@ body.dark-mode #confirmBtn {
   color: black;
 }
 
+body.dark-mode .cancel-btn, .submit-btn{
+  background-color: white;
+}
+
+body.dark-mode .todolist .item {
+  background-color: white;
+  color: black;
+}
+
+body.dark-mode .todolist input:checked + label {
+  color: #888;
+}
+
+@media (max-width: 768px) {
+  .l_wrapper {
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .day_section li {
+    font-size: 0.9rem;
+  }
+
+  .todolist .item {
+    padding: 10px;
+    font-size: 0.8rem;
+  }
+
+  .floating {
+    bottom: 10px;
+    right: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .day_section li {
+    font-size: 0.8rem;
+  }
+
+  .todolist .item {
+    padding: 8px;
+    font-size: 0.7rem;
+  }
+
+  .form-group input,
+  .form-group select {
+    font-size: 0.9rem;
+  }
+}
