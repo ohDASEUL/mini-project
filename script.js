@@ -167,6 +167,13 @@ function init() {
   createCategoryOptions();
   displayTodos();
 
+  // 다크 모드 상태 불러오기 및 적용
+  const isDarkMode = loadDarkModeState();
+  if (isDarkMode){
+    document.body.classList.add("dark-mode")
+  }
+  updateIcons();
+
   // 다크 모드 버튼 이벤트 리스너
   const darkModeBtn = document.querySelector(".system_mode");
   if (darkModeBtn) {
@@ -280,3 +287,21 @@ function init() {
 
 // DOM이 로드되면 초기화 함수 실행
 document.addEventListener("DOMContentLoaded", init);
+
+// 다크 모드 상태를 로컬 스토리지에 저장
+function saveDarkModeState(isDarkMode){
+  localStorage.setItem("darkMode", isDarkMode);
+}
+
+// 다크 모드 상태를 로컬 스토리지에서 불러오기
+function loadDarkModeState() {
+  return localStorage.getItem("darkMode") === "true";
+}
+
+function toggleDarkMode(){
+  const body = document.body;
+  body.classList.toggle("dark-mode");
+  const isDarkMode = body.classList.contains("dark-mode")
+  saveDarkModeState(isDarkMode);
+  updateIcons(); 
+}
