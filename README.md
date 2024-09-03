@@ -37,9 +37,5 @@
 ### 현재날짜 조회
 ![Dark-calender-now](./preview/PC(1920_1080)%20다크-%20달력%20-%20현재%20날짜%20조회.png)
 
-# 현재 까지 진행상황
-![preview](https://github.com/user-attachments/assets/559e7377-5a48-4be6-b995-ce788ae559d1)
-
-
 
 
