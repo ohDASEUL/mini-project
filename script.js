@@ -180,6 +180,15 @@ function init() {
     darkModeBtn.addEventListener("click", toggleDarkMode);
   }
 
+  // 타이틀 클릭 이벤트 리스너
+  const titleLink = document.querySelector(".title a");
+  if(titleLink){
+    titleLink.addEventListener("click", handleTitleClick);
+  }
+
+  // 페이지 리다이렉트
+  redirectToAppropriatePageData();
+
   // 플로팅 버튼 클릭 이벤트 리스너
   const floatingBtn = document.querySelector(".floating-button");
   if (floatingBtn) {
@@ -304,4 +313,27 @@ function toggleDarkMode(){
   const isDarkMode = body.classList.contains("dark-mode")
   saveDarkModeState(isDarkMode);
   updateIcons(); 
+}
+
+
+// 페이지 리다이렉트 함수
+function redirectToAppropriatePageData(){
+  const hasTodos = todos.length > 0;
+  const currentPage = window.location.pathname.split("/").pop();
+
+  if(hasTodos){
+    if(currentPage === "index.html"){
+      window.location.href = "main.html"
+    }
+  }else{
+    if(currentPage === "main.html"){
+      window.location.href = "index.html"
+    }
+  }
+}
+
+// 타이틀 클릭 이벤트 핸들러
+function handleTitleClick(){
+  e.preventDefault();
+  redirectToAppropriatePageData();
 }
