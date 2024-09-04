@@ -348,42 +348,61 @@ function handleTitleClick() {
 }
 
 // 달력 만들기 - 현재 몇월인지
-const date = new Date();
+let date = new Date();
 
-const viewYear = date.getFullYear();
-const viewMonth = date.getMonth();
+const renderCalendar = () => {
+  const viewYear = date.getFullYear();
+  const viewMonth = date.getMonth();
 
-document.querySelector(".year-month").textContent = `${viewYear}년 ${
-  viewMonth + 1
-}월`;
+  document.querySelector(".year-month").textContent = `${viewYear}년 ${
+    viewMonth + 1
+  }월`;
 
-const prevLast = new Date(viewYear, viewMonth, 0);
-const thisLast = new Date(viewYear, viewMonth + 1, 0);
+  const prevLast = new Date(viewYear, viewMonth, 0);
+  const thisLast = new Date(viewYear, viewMonth + 1, 0);
 
-const PLDate = prevLast.getDate();
-const PLDay = prevLast.getDay();
+  const PLDate = prevLast.getDate();
+  const PLDay = prevLast.getDay();
 
-const TLDate = thisLast.getDate();
-const TLDay = thisLast.getDay();
+  const TLDate = thisLast.getDate();
+  const TLDay = thisLast.getDay();
 
-const prevDates = [];
-const thisDates = [...Array(TLDate + 1).keys()].slice(1);
-const nextDates = [];
+  const prevDates = [];
+  const thisDates = [...Array(TLDate + 1).keys()].slice(1);
+  const nextDates = [];
 
-if (PLDay !== 6) {
-  for (let i = 0; i < PLDay + 1; i++) {
-    prevDates.unshift(PLDate - 1);
+  if (PLDay !== 6) {
+    for (let i = 0; i < PLDay + 1; i++) {
+      prevDates.unshift(PLDate - 1);
+    }
   }
+
+  for (let i = 1; i < 7 - TLDay; i++) {
+    nextDates.push(i);
+  }
+
+  const dates = prevDates.concat(thisDates, nextDates);
+
+  dates.forEach((date, i) => {
+    dates[i] = `<div class="date">${date}</div>`;
+  });
+
+  document.querySelector(".dates").innerHTML = dates.join("");
+};
+
+renderCalendar();
+
+const prevMonth = () => {
+  date.setMonth(date.getMonth() - 1);
+  renderCalendar();
 }
 
-for(let i= 1; i < 7 - TLDay; i++){
-  nextDates.push(i)
+const nextMonth = () => {
+  date.setMonth(date.getMonth() + 1);
+  renderCalendar();
 }
 
-const dates = prevDates.concat(thisDates, nextDates);
-
-dates.forEach((date, i) => {
-  dates[i] = `<div class="date">${date}</div>`
-})
-
-document.querySelector('.dates').innerHTML = dates.join('');
+const goToday = () => {
+  date = new Date();
+  renderCalendar();
+}
