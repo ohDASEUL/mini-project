@@ -153,12 +153,18 @@ function updateIcons() {
   const darkModeBtn = document.querySelector(".system_mode img");
   const floatingBtn = document.querySelector(".floating-button img");
   const todoWriteIcon = document.querySelector(".todo-write-button img");
-  const todoCalendarIcon = document.querySelector(".additional-icons img:first-child");
+  const todoCalendarIcon = document.querySelector(
+    ".additional-icons img:first-child"
+  );
 
   darkModeBtn.src = isDarkMode ? "icon/light.svg" : "icon/dark.svg";
   floatingBtn.src = isDarkMode ? "icon/dark_plus.svg" : "icon/light_plus.svg";
-  todoWriteIcon.src = isDarkMode ? "icon/dark_todo_write.svg" : "icon/light_todo_write.svg";
-  todoCalendarIcon.src = isDarkMode ? "icon/dark_calendar.svg" : "icon/light_calendar.svg";
+  todoWriteIcon.src = isDarkMode
+    ? "icon/dark_todo_write.svg"
+    : "icon/light_todo_write.svg";
+  todoCalendarIcon.src = isDarkMode
+    ? "icon/dark_calendar.svg"
+    : "icon/light_calendar.svg";
 }
 
 // 초기화 함수
@@ -169,8 +175,8 @@ function init() {
 
   // 다크 모드 상태 불러오기 및 적용
   const isDarkMode = loadDarkModeState();
-  if (isDarkMode){
-    document.body.classList.add("dark-mode")
+  if (isDarkMode) {
+    document.body.classList.add("dark-mode");
   }
   updateIcons();
 
@@ -182,7 +188,7 @@ function init() {
 
   // 타이틀 클릭 이벤트 리스너
   const titleLink = document.querySelector(".title a");
-  if(titleLink){
+  if (titleLink) {
     titleLink.addEventListener("click", handleTitleClick);
   }
 
@@ -197,10 +203,14 @@ function init() {
       const plusIcon = this.querySelector("img");
 
       if (additionalIcons.style.display === "flex") {
-        plusIcon.src = document.body.classList.contains("dark-mode") ? "icon/dark_plus.svg" : "icon/light_plus.svg";
+        plusIcon.src = document.body.classList.contains("dark-mode")
+          ? "icon/dark_plus.svg"
+          : "icon/light_plus.svg";
         additionalIcons.style.display = "none";
       } else {
-        plusIcon.src = document.body.classList.contains("dark-mode") ? "icon/dark_x.svg" : "icon/light_x.svg";
+        plusIcon.src = document.body.classList.contains("dark-mode")
+          ? "icon/dark_x.svg"
+          : "icon/light_x.svg";
         additionalIcons.style.display = "flex";
       }
       updateIcons();
@@ -298,7 +308,7 @@ function init() {
 document.addEventListener("DOMContentLoaded", init);
 
 // 다크 모드 상태를 로컬 스토리지에 저장
-function saveDarkModeState(isDarkMode){
+function saveDarkModeState(isDarkMode) {
   localStorage.setItem("darkMode", isDarkMode);
 }
 
@@ -307,41 +317,73 @@ function loadDarkModeState() {
   return localStorage.getItem("darkMode") === "true";
 }
 
-function toggleDarkMode(){
+function toggleDarkMode() {
   const body = document.body;
   body.classList.toggle("dark-mode");
-  const isDarkMode = body.classList.contains("dark-mode")
+  const isDarkMode = body.classList.contains("dark-mode");
   saveDarkModeState(isDarkMode);
-  updateIcons(); 
+  updateIcons();
 }
 
-
 // 페이지 리다이렉트 함수
-function redirectToAppropriatePageData(){
+function redirectToAppropriatePageData() {
   const hasTodos = todos.length > 0;
   const currentPage = window.location.pathname.split("/").pop();
 
-  if(hasTodos){
-    if(currentPage === "index.html"){
-      window.location.href = "main.html"
+  if (hasTodos) {
+    if (currentPage === "index.html") {
+      window.location.href = "main.html";
     }
-  }else{
-    if(currentPage === "main.html"){
-      window.location.href = "index.html"
+  } else {
+    if (currentPage === "main.html") {
+      window.location.href = "index.html";
     }
   }
 }
 
 // 타이틀 클릭 이벤트 핸들러
-function handleTitleClick(){
+function handleTitleClick() {
   e.preventDefault();
   redirectToAppropriatePageData();
 }
 
-
+// 달력 만들기 - 현재 몇월인지
 const date = new Date();
 
 const viewYear = date.getFullYear();
 const viewMonth = date.getMonth();
 
-document.querySelector('.year-month').textContent = `${viewYear}년 ${viewMonth + 1}월`
+document.querySelector(".year-month").textContent = `${viewYear}년 ${
+  viewMonth + 1
+}월`;
+
+const prevLast = new Date(viewYear, viewMonth, 0);
+const thisLast = new Date(viewYear, viewMonth + 1, 0);
+
+const PLDate = prevLast.getDate();
+const PLDay = prevLast.getDay();
+
+const TLDate = thisLast.getDate();
+const TLDay = thisLast.getDay();
+
+const prevDates = [];
+const thisDates = [...Array(TLDate + 1).keys()].slice(1);
+const nextDates = [];
+
+if (PLDay !== 6) {
+  for (let i = 0; i < PLDay + 1; i++) {
+    prevDates.unshift(PLDate - 1);
+  }
+}
+
+for(let i= 1; i < 7 - TLDay; i++){
+  nextDates.push(i)
+}
+
+const dates = prevDates.concat(thisDates, nextDates);
+
+dates.forEach((date, i) => {
+  dates[i] = `<div class="date">${date}</div>`
+})
+
+document.querySelector('.dates').innerHTML = dates.join('');
