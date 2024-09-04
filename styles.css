@@ -380,6 +380,10 @@ body {
   color: blue;
 }
 
+.other{
+  opacity: 0.5;
+}
+
 /* 다크 모드 스타일 */
 body.dark-mode {
   background-color: white;
