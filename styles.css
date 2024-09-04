@@ -372,6 +372,15 @@ body {
   border-bottom: none;
 }
 
+.day:nth-child(7n),
+.date:nth-child(7n){
+  color: red;
+}
+
+.day:nth-child(7n - 1),
+.date:nth-child(7n - 1){
+  color: blue;
+}
 /* 다크 모드 스타일 */
 body.dark-mode {
   background-color: white;
