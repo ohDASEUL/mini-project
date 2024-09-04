@@ -354,9 +354,7 @@ const renderCalendar = () => {
   const viewYear = date.getFullYear();
   const viewMonth = date.getMonth();
 
-  document.querySelector(".year-month").textContent = `${viewYear}년 ${
-    viewMonth + 1
-  }월`;
+  document.querySelector(".year-month").textContent = `${viewYear}년 ${viewMonth + 1}월`;
 
   const prevLast = new Date(viewYear, viewMonth, 0);
   const thisLast = new Date(viewYear, viewMonth + 1, 0);
@@ -373,7 +371,7 @@ const renderCalendar = () => {
 
   if (PLDay !== 6) {
     for (let i = 0; i < PLDay + 1; i++) {
-      prevDates.unshift(PLDate - 1);
+      prevDates.unshift(PLDate - i);
     }
   }
 
@@ -385,10 +383,18 @@ const renderCalendar = () => {
   const firstDateIndex = dates.indexOf(1);
   const lastDateIndex = dates.lastIndexOf(TLDate);
 
+  const today = new Date();
+  const todayDate = today.getDate();
+  const todayMonth = today.getMonth();
+  const todayYear = today.getFullYear();
 
   dates.forEach((date, i) => {
     const condition = i >= firstDateIndex && i < lastDateIndex + 1 ? 'this' : 'other';
-    dates[i] = `<div class="date"><span class=${condition}>${date}</span></div>`;
+    let isToday = '';
+    if (condition === 'this' && date === todayDate && viewMonth === todayMonth && viewYear === todayYear) {
+      isToday = ' today';
+    }
+    dates[i] = `<div class="date"><span class="${condition}${isToday}">${date}</span></div>`;
   });
 
   document.querySelector(".dates").innerHTML = dates.join("");

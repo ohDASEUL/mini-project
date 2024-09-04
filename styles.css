@@ -380,7 +380,21 @@ body {
   color: blue;
 }
 
-.other{
+.date span {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 50%;
+  text-align: center;
+}
+
+.date span.today {
+  background-color: orange;
+  color: white;
+}
+
+.other {
   opacity: 0.5;
 }
 
