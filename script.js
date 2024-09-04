@@ -252,6 +252,14 @@ function init() {
     });
   }
 
+  // 캘린더 이동 버튼
+  const calendarBtn = document.querySelector(".calendar-button");
+  if (calendarBtn) {
+    calendarBtn.addEventListener("click", function () {
+      window.location.href = "calendar.html";
+    });
+  }
+
   // 드롭다운 관련 코드
   const dropBtn = document.querySelector(".dropdown-btn");
   const dropdown = document.getElementById("todoDropdown");
@@ -354,7 +362,9 @@ const renderCalendar = () => {
   const viewYear = date.getFullYear();
   const viewMonth = date.getMonth();
 
-  document.querySelector(".year-month").textContent = `${viewYear}년 ${viewMonth + 1}월`;
+  document.querySelector(".year-month").textContent = `${viewYear}년 ${
+    viewMonth + 1
+  }월`;
 
   const prevLast = new Date(viewYear, viewMonth, 0);
   const thisLast = new Date(viewYear, viewMonth + 1, 0);
@@ -389,12 +399,20 @@ const renderCalendar = () => {
   const todayYear = today.getFullYear();
 
   dates.forEach((date, i) => {
-    const condition = i >= firstDateIndex && i < lastDateIndex + 1 ? 'this' : 'other';
-    let isToday = '';
-    if (condition === 'this' && date === todayDate && viewMonth === todayMonth && viewYear === todayYear) {
-      isToday = ' today';
+    const condition =
+      i >= firstDateIndex && i < lastDateIndex + 1 ? "this" : "other";
+    let isToday = "";
+    if (
+      condition === "this" &&
+      date === todayDate &&
+      viewMonth === todayMonth &&
+      viewYear === todayYear
+    ) {
+      isToday = " today";
     }
-    dates[i] = `<div class="date"><span class="${condition}${isToday}">${date}</span></div>`;
+    dates[
+      i
+    ] = `<div class="date"><span class="${condition}${isToday}">${date}</span></div>`;
   });
 
   document.querySelector(".dates").innerHTML = dates.join("");
@@ -405,14 +423,14 @@ renderCalendar();
 const prevMonth = () => {
   date.setMonth(date.getMonth() - 1);
   renderCalendar();
-}
+};
 
 const nextMonth = () => {
   date.setMonth(date.getMonth() + 1);
   renderCalendar();
-}
+};
 
 const goToday = () => {
   date = new Date();
   renderCalendar();
-}
+};
