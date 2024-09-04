@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      as="style"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <title>To Do List</title>
+  </head>
+  <body>
+    <div class="l_wrapper">
+      <div class="contents">
+        <header class="header">
+          <h1 class="title"><a href="index.html">TO DO LIST</a></h1>
+          <button class="system_mode">
+            <img src="./icon/dark.svg" alt="Icon" class="dark" />
+          </button>
+        </header>
+        <div class="day_section">
+          <ul>
+            <li>월</li>
+            <li>화</li>
+            <li>수</li>
+            <li>목</li>
+            <li>금</li>
+            <li>토</li>
+            <li>일</li>
+          </ul>
+          <ul>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+            <li>7</li>
+          </ul>
+        </div>
+        <div class="calendar">
+          <div class="calendar-header">
+            <div class="year-month"></div>
+            <div class="nav">
+              <button class="nav-btn go-prev">&lt;</button>
+              <button class="nav-btn go-today">Today</button>
+              <button class="nav-btn go-next">&gt;</button>
+            </div>
+          </div>
+        </div>
+        <div class="day-main">
+          <div class="days">
+            <div class="day">월</div>
+            <div class="day">화</div>
+            <div class="day">수</div>
+            <div class="day">목</div>
+            <div class="day">금</div>
+            <div class="day">토</div>
+            <div class="day">일</div>
+          </div>
+        </div>
+
+        <div class="floating">
+          <div class="additional-icons">
+            <button>
+              <img src="icon/light_calendar.svg" alt="Calendar" />
+            </button>
+            <button class="todo-write-button">
+              <img src="icon/light_todo_write.svg" alt="Todo Write" />
+            </button>
+          </div>
+          <button class="floating-button">
+            <img src="icon/light_plus.svg" alt="Plus" class="plus" />
+          </button>
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
