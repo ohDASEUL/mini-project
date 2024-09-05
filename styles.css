@@ -90,6 +90,16 @@ body {
   font-weight: 400;
 }
 
+.day_section .dates {
+  border: none;
+}
+
+.day_section .today {
+  font-weight: 700;
+  color: green;  /* 원하는 색상으로 변경하세요 */
+}
+
+
 .empty-state {
   flex-grow: 1;
   display: flex;

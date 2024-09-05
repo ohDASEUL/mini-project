@@ -6,9 +6,9 @@ const categories = ["업무", "취미", "집안일", "기타"];
 
 // 로컬 스토리지에서 기존 할 일 목록 불러오기
 function loadTodos() {
-  const stroedTodos = localStorage.getItem("todos");
-  if (stroedTodos) {
-    todos = JSON.parse(stroedTodos);
+  const storedTodos = localStorage.getItem("todos");
+  if (storedTodos) {
+    todos = JSON.parse(storedTodos);
   }
 }
 
@@ -145,6 +145,8 @@ function addEventListeners() {
 function toggleDarkMode() {
   const body = document.body;
   body.classList.toggle("dark-mode");
+  const isDarkMode = body.classList.contains("dark-mode");
+  saveDarkModeState(isDarkMode);
   updateIcons();
 }
 
@@ -157,14 +159,18 @@ function updateIcons() {
     ".additional-icons img:first-child"
   );
 
-  darkModeBtn.src = isDarkMode ? "icon/light.svg" : "icon/dark.svg";
-  floatingBtn.src = isDarkMode ? "icon/dark_plus.svg" : "icon/light_plus.svg";
-  todoWriteIcon.src = isDarkMode
-    ? "icon/dark_todo_write.svg"
-    : "icon/light_todo_write.svg";
-  todoCalendarIcon.src = isDarkMode
-    ? "icon/dark_calendar.svg"
-    : "icon/light_calendar.svg";
+  if (darkModeBtn)
+    darkModeBtn.src = isDarkMode ? "icon/light.svg" : "icon/dark.svg";
+  if (floatingBtn)
+    floatingBtn.src = isDarkMode ? "icon/dark_plus.svg" : "icon/light_plus.svg";
+  if (todoWriteIcon)
+    todoWriteIcon.src = isDarkMode
+      ? "icon/dark_todo_write.svg"
+      : "icon/light_todo_write.svg";
+  if (todoCalendarIcon)
+    todoCalendarIcon.src = isDarkMode
+      ? "icon/dark_calendar.svg"
+      : "icon/light_calendar.svg";
 }
 
 // 초기화 함수
@@ -310,6 +316,14 @@ function init() {
 
   // 초기 아이콘 상태 설정
   updateIcons();
+
+  // 캘린더 관련 함수 호출
+  if (document.querySelector(".calendar")) {
+    renderCalendar();
+  }
+
+  // 주간 날짜 업데이트
+  updateWeekDates();
 }
 
 // DOM이 로드되면 초기화 함수 실행
@@ -323,14 +337,6 @@ function saveDarkModeState(isDarkMode) {
 // 다크 모드 상태를 로컬 스토리지에서 불러오기
 function loadDarkModeState() {
   return localStorage.getItem("darkMode") === "true";
-}
-
-function toggleDarkMode() {
-  const body = document.body;
-  body.classList.toggle("dark-mode");
-  const isDarkMode = body.classList.contains("dark-mode");
-  saveDarkModeState(isDarkMode);
-  updateIcons();
 }
 
 // 페이지 리다이렉트 함수
@@ -350,7 +356,7 @@ function redirectToAppropriatePageData() {
 }
 
 // 타이틀 클릭 이벤트 핸들러
-function handleTitleClick() {
+function handleTitleClick(e) {
   e.preventDefault();
   redirectToAppropriatePageData();
 }
@@ -362,9 +368,10 @@ const renderCalendar = () => {
   const viewYear = date.getFullYear();
   const viewMonth = date.getMonth();
 
-  document.querySelector(".year-month").textContent = `${viewYear}년 ${
-    viewMonth + 1
-  }월`;
+  const yearMonthElement = document.querySelector(".year-month");
+  if (yearMonthElement) {
+    yearMonthElement.textContent = `${viewYear}년 ${viewMonth + 1}월`;
+  }
 
   const prevLast = new Date(viewYear, viewMonth, 0);
   const thisLast = new Date(viewYear, viewMonth + 1, 0);
@@ -398,27 +405,26 @@ const renderCalendar = () => {
   const todayMonth = today.getMonth();
   const todayYear = today.getFullYear();
 
-  dates.forEach((date, i) => {
-    const condition =
-      i >= firstDateIndex && i < lastDateIndex + 1 ? "this" : "other";
-    let isToday = "";
-    if (
-      condition === "this" &&
-      date === todayDate &&
-      viewMonth === todayMonth &&
-      viewYear === todayYear
-    ) {
-      isToday = " today";
-    }
-    dates[
-      i
-    ] = `<div class="date"><span class="${condition}${isToday}">${date}</span></div>`;
-  });
-
-  document.querySelector(".dates").innerHTML = dates.join("");
+  const datesElement = document.querySelector(".dates");
+  if (datesElement) {
+    datesElement.innerHTML = dates
+      .map((date, i) => {
+        const condition =
+          i >= firstDateIndex && i < lastDateIndex + 1 ? "this" : "other";
+        let isToday = "";
+        if (
+          condition === "this" &&
+          date === todayDate &&
+          viewMonth === todayMonth &&
+          viewYear === todayYear
+        ) {
+          isToday = " today";
+        }
+        return `<div class="date"><span class="${condition}${isToday}">${date}</span></div>`;
+      })
+      .join("");
+  }
 };
-
-renderCalendar();
 
 const prevMonth = () => {
   date.setMonth(date.getMonth() - 1);
@@ -434,3 +440,210 @@ const goToday = () => {
   date = new Date();
   renderCalendar();
 };
+
+function updateWeekDates() {
+  const weekdays = ['월', '화', '수', '목', '금', '토', '일'];
+  const today = new Date();
+  const currentDay = today.getDay(); // 0 (일요일) ~ 6 (토요일)
+  
+  // 이번 주 월요일 찾기
+  const monday = new Date(today);
+  monday.setDate(today.getDate() - currentDay + (currentDay === 0 ? -6 : 1));
+
+  const weekdaysEl = document.querySelector('.day_section .weekdays');
+  const datesEl = document.querySelector('.day_section .dates');
+
+  if (!weekdaysEl || !datesEl) return;
+
+  weekdaysEl.innerHTML = '';
+  datesEl.innerHTML = '';
+
+  for (let i = 0; i < 7; i++) {
+    const date = new Date(monday);
+    date.setDate(monday.getDate() + i);
+
+    // 요일 추가
+    const weekdayLi = document.createElement('li');
+    weekdayLi.textContent = weekdays[i];
+    weekdaysEl.appendChild(weekdayLi);
+
+    // 날짜 추가
+    const dateLi = document.createElement('li');
+    dateLi.textContent = date.getDate();
+    
+    // 오늘 날짜 강조
+    if (date.toDateString() === today.toDateString()) {
+      dateLi.classList.add('today');
+      weekdayLi.classList.add('today'); // 요일도 강조
+    }
+
+    datesEl.appendChild(dateLi);
+  }
+}
+
+// 캘린더 관련 이벤트 리스너 추가
+function addCalendarEventListeners() {
+  const prevBtn = document.querySelector(".go-prev");
+  const nextBtn = document.querySelector(".go-next");
+  const todayBtn = document.querySelector(".go-today");
+
+  if (prevBtn) prevBtn.addEventListener("click", prevMonth);
+  if (nextBtn) nextBtn.addEventListener("click", nextMonth);
+  if (todayBtn) todayBtn.addEventListener("click", goToday);
+}
+
+// 초기화 함수에 캘린더 이벤트 리스너 추가 부분 추가
+// 초기화 함수
+function init() {
+  loadTodos();
+  createCategoryOptions();
+  displayTodos();
+
+  // 다크 모드 상태 불러오기 및 적용
+  const isDarkMode = loadDarkModeState();
+  if (isDarkMode) {
+    document.body.classList.add("dark-mode");
+  }
+  updateIcons();
+
+  // 다크 모드 버튼 이벤트 리스너
+  const darkModeBtn = document.querySelector(".system_mode");
+  if (darkModeBtn) {
+    darkModeBtn.addEventListener("click", toggleDarkMode);
+  }
+
+  // 타이틀 클릭 이벤트 리스너
+  const titleLink = document.querySelector(".title a");
+  if (titleLink) {
+    titleLink.addEventListener("click", handleTitleClick);
+  }
+
+  // 페이지 리다이렉트
+  redirectToAppropriatePageData();
+
+  // 플로팅 버튼 클릭 이벤트 리스너
+  const floatingBtn = document.querySelector(".floating-button");
+  if (floatingBtn) {
+    floatingBtn.addEventListener("click", function () {
+      const additionalIcons = document.querySelector(".additional-icons");
+      const plusIcon = this.querySelector("img");
+
+      if (additionalIcons.style.display === "flex") {
+        plusIcon.src = document.body.classList.contains("dark-mode")
+          ? "icon/dark_plus.svg"
+          : "icon/light_plus.svg";
+        additionalIcons.style.display = "none";
+      } else {
+        plusIcon.src = document.body.classList.contains("dark-mode")
+          ? "icon/dark_x.svg"
+          : "icon/light_x.svg";
+        additionalIcons.style.display = "flex";
+      }
+      updateIcons();
+    });
+  }
+
+  // TO DO 작성 버튼 이벤트 리스너
+  const todoWriteBtn = document.querySelector(".todo-write-button");
+  if (todoWriteBtn) {
+    todoWriteBtn.addEventListener("click", function () {
+      window.location.href = "create-todo.html";
+    });
+  }
+
+  // 등록 버튼 이벤트 리스너
+  const todoSubmitBtn = document.querySelector(".todo-submit-button");
+  if (todoSubmitBtn) {
+    todoSubmitBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+
+      const todoInput = document.getElementById("todo-input");
+      const categorySelect = document.getElementById("category-select");
+      const dateInput = document.getElementById("date-input");
+
+      if (!todoInput.value || !categorySelect.value || !dateInput.value) {
+        alert("모든 필드를 입력해주세요.");
+        return;
+      }
+
+      addTodo(todoInput.value, categorySelect.value, dateInput.value);
+      displayTodos();
+
+      todoInput.value = "";
+      categorySelect.value = "";
+      dateInput.value = "";
+
+      alert("등록되었습니다.");
+      window.location.href = "main.html";
+    });
+  }
+
+  // 캘린더 이동 버튼
+  const calendarBtn = document.querySelector(".calendar-button");
+  if (calendarBtn) {
+    calendarBtn.addEventListener("click", function () {
+      window.location.href = "calendar.html";
+    });
+  }
+
+  // 드롭다운 관련 코드
+  const dropBtn = document.querySelector(".dropdown-btn");
+  const dropdown = document.getElementById("todoDropdown");
+  const arrow = document.querySelector(".arrow");
+  const confirmBtn = document.getElementById("confirmBtn");
+
+  if (dropBtn && dropdown && arrow) {
+    const toggleDropdown = () => {
+      dropdown.classList.toggle("show");
+      arrow.classList.toggle("up");
+    };
+    dropBtn.addEventListener("click", toggleDropdown);
+
+    const stopPropagation = (e) => {
+      e.stopPropagation();
+    };
+
+    dropdown.addEventListener("click", stopPropagation);
+
+    window.addEventListener("click", (e) => {
+      if (!e.target.matches(".dropdown-btn") && !e.target.matches(".arrow")) {
+        if (dropdown.classList.contains("show")) {
+          dropdown.classList.remove("show");
+          arrow.classList.remove("up");
+        }
+      }
+    });
+  }
+
+  if (confirmBtn) {
+    confirmBtn.addEventListener("click", () => {
+      const selectedFilter = document.querySelector('input[name="filter"]:checked');
+      if (selectedFilter) {
+        const filteredTodos = filterTodos(selectedFilter.value);
+        displayTodos(filteredTodos);
+      } else {
+        displayTodos();
+      }
+      // 드롭다운 닫기
+      if (dropdown && arrow) {
+        dropdown.classList.remove("show");
+        arrow.classList.remove("up");
+      }
+    });
+  }
+
+  // 초기 아이콘 상태 설정
+  updateIcons();
+
+  // 캘린더 관련 함수 호출
+  if (document.querySelector('.calendar')) {
+    renderCalendar();
+    addCalendarEventListeners();
+  }
+  
+  // 주간 날짜 업데이트
+  updateWeekDates();
+}
+
+// DOM이 로드되면 초기화 함수 실행
+document.addEventListener("DOMContentLoaded", init);
