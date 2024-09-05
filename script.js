@@ -309,6 +309,23 @@ const redirectToAppropriatePageData = () => {
   }
 };
 
+// 날짜 입력 필드 초기화 함수
+const initDateInput = () => {
+  const dateInput = document.getElementById('date-input');
+  if (dateInput) {
+    // 오늘 날짜를 YYYY-MM-DD 형식으로 가져옵니다
+    const today = new Date().toISOString().split('T')[0];
+    
+    // min 속성을 오늘 날짜로 설정합니다
+    dateInput.min = today;
+    
+    // 선택된 날짜가 없거나 과거 날짜인 경우 오늘 날짜로 설정합니다
+    if (!dateInput.value || dateInput.value < today) {
+      dateInput.value = today;
+    }
+  }
+};
+
 // 초기화 함수
 const init = () => {
   loadTodos();
@@ -408,6 +425,8 @@ const init = () => {
       window.location.href = "main.html";
     });
   }
+  
+  initDateInput();
 };
 
 // DOM이 로드되면 초기화 함수 실행
