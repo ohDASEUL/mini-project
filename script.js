@@ -2,7 +2,7 @@
 const state = {
   todos: [],
   categories: ["업무", "취미", "집안일", "기타"],
-  date: new Date(),
+  date: new Date()
 };
 
 // 로컬 스토리지 관리
@@ -21,7 +21,7 @@ const storage = {
   },
   loadDarkModeState: () => {
     return localStorage.getItem("darkMode") === "true";
-  },
+  }
 };
 
 // 할 일 관리
@@ -50,7 +50,7 @@ const todoManager = {
     const due = new Date(dueDate);
     const diffTime = due - today;
     return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-  },
+  }
 };
 
 // UI 관리
@@ -84,7 +84,6 @@ const uiManager = {
       : state.todos;
     uiManager.displayTodos(filteredTodos);
   },
-
   displayTodos: (filteredTodos = state.todos) => {
     const todoList = document.querySelector(".todolist");
     if (!todoList) return;
@@ -106,7 +105,6 @@ const uiManager = {
     });
     uiManager.addEventListeners();
   },
-
   addEventListeners: () => {
     document.querySelectorAll('.todolist input[type="checkbox"]').forEach((checkbox) => {
       checkbox.addEventListener("change", function () {
@@ -151,14 +149,8 @@ const uiManager = {
     const iconMappings = {
       ".system_mode img": ["icon/light.svg", "icon/dark.svg"],
       ".floating-button img": ["icon/dark_plus.svg", "icon/light_plus.svg"],
-      ".todo-write-button img": [
-        "icon/dark_todo_write.svg",
-        "icon/light_todo_write.svg",
-      ],
-      ".calendar-button img": [
-        "icon/dark_calendar.svg",
-        "icon/light_calendar.svg",
-      ],
+      ".todo-write-button img": ["icon/dark_todo_write.svg", "icon/light_todo_write.svg"],
+      ".calendar-button img": ["icon/dark_calendar.svg", "icon/light_calendar.svg"],
     };
 
     Object.entries(iconMappings).forEach(([selector, [darkSrc, lightSrc]]) => {
@@ -210,13 +202,16 @@ const uiManager = {
       todoList.style.display = state.todos.length === 0 ? "none" : "block";
     }
   },
+  calculateCompletionRate: (todos) => {
+    if (todos.length === 0) return 0;
+    const completedTodos = todos.filter(todo => todo.completed);
+    return Math.round((completedTodos.length / todos.length) * 100);
+  },
   renderCalendar: () => {
     const viewYear = state.date.getFullYear();
     const viewMonth = state.date.getMonth();
 
-    document.querySelector(".year-month").textContent = `${viewYear}년 ${
-      viewMonth + 1
-    }월`;
+    document.querySelector(".year-month").textContent = `${viewYear}년 ${viewMonth + 1}월`;
 
     const prevLast = new Date(viewYear, viewMonth, 0);
     const thisLast = new Date(viewYear, viewMonth + 1, 0);
@@ -227,10 +222,7 @@ const uiManager = {
     const TLDate = thisLast.getDate();
     const TLDay = thisLast.getDay();
 
-    const prevDates = Array.from(
-      { length: PLDay + 1 },
-      (_, i) => PLDate - i
-    ).reverse();
+    const prevDates = Array.from({ length: PLDay + 1 }, (_, i) => PLDate - i).reverse();
     const thisDates = Array.from({ length: TLDate }, (_, i) => i + 1);
     const nextDates = Array.from({ length: 6 - TLDay }, (_, i) => i + 1);
 
@@ -239,25 +231,21 @@ const uiManager = {
     const today = new Date();
 
     dates.forEach((date, i) => {
-      const condition =
-        i >= prevDates.length && i < prevDates.length + thisDates.length
-          ? "this"
-          : "other";
-      const isToday =
-        condition === "this" &&
-        date === today.getDate() &&
-        viewMonth === today.getMonth() &&
-        viewYear === today.getFullYear()
-          ? " today"
-          : "";
-      dates[i] = `<div class="date" data-date="${viewYear}-${
-        viewMonth + 1
-      }-${date}"><span class="${condition}${isToday}">${date}</span></div>`;
+      const condition = i >= prevDates.length && i < prevDates.length + thisDates.length ? "this" : "other";
+      const isToday = condition === "this" && date === today.getDate() && viewMonth === today.getMonth() && viewYear === today.getFullYear() ? " today" : "";
+      const dateStr = `${viewYear}-${String(viewMonth + 1).padStart(2, '0')}-${String(date).padStart(2, '0')}`;
+      const todosForDate = state.todos.filter(todo => todo.date === dateStr);
+      const completionRate = uiManager.calculateCompletionRate(todosForDate);
+      
+      dates[i] = `
+        <div class="date" data-date="${dateStr}">
+          <span class="${condition}${isToday}">${date}</span>
+          ${todosForDate.length > 0 ? `<div class="date-progress" style="width: ${completionRate}%;"></div>` : ''}
+        </div>`;
     });
 
     document.querySelector(".dates").innerHTML = dates.join("");
 
-    // 날짜 클릭 이벤트 추가
     document.querySelectorAll(".date").forEach((dateEl) => {
       dateEl.addEventListener("click", () => {
         const dateStr = dateEl.dataset.date;
@@ -265,28 +253,26 @@ const uiManager = {
       });
     });
   },
-
-  calculateCompletionRate: (todos) => {
-    if (todos.length === 0) return 0;
-    const completedTodos = todos.filter((todo) => todo.completed);
-    return Math.round((completedTodos.length / todos.length) * 100);
-  },
   openModal: (dateStr) => {
     const modal = document.getElementById("dateModal");
     const modalDate = document.getElementById("modalDate");
+    const modalContent = document.getElementById("modalContent");
     const progressBar = document.getElementById("progressBar");
     const progressText = document.getElementById("progressText");
 
     modalDate.textContent = dateStr;
 
-     // 해당 날짜의 할 일 목록을 가져와서 표시
-     const todos = state.todos.filter((todo) => todo.date === dateStr);
-     const completionRate = uiManager.calculateCompletionRate(todos);
- 
-     progressBar.style.width = `${completionRate}%`;
-     progressText.textContent = `${completionRate}%`;
- 
-     modal.style.display = "block";
+    const todos = state.todos.filter((todo) => todo.date === dateStr);
+    const completionRate = uiManager.calculateCompletionRate(todos);
+
+    modalContent.innerHTML = todos.length > 0
+      ? todos.map((todo) => `<li><input type="checkbox" ${todo.completed ? 'checked' : ''} disabled> ${todo.todo}</li>`).join("")
+      : "<p>해당 날짜에 할 일이 없습니다.</p>";
+
+    progressBar.style.width = `${completionRate}%`;
+    progressText.textContent = `${completionRate}%`;
+
+    modal.style.display = "block";
   },
   closeModal: () => {
     const modal = document.getElementById("dateModal");
@@ -307,7 +293,7 @@ const uiManager = {
     const arrow = document.querySelector(".arrow");
     dropdownContent.classList.toggle("show");
     arrow.classList.toggle("up");
-  },
+  }
 };
 
 // 페이지 관리
@@ -316,22 +302,16 @@ const pageManager = {
     const hasTodos = state.todos.length > 0;
     const currentPage = window.location.pathname.split("/").pop();
 
-    if (
-      hasTodos &&
-      (currentPage === "index.html" || currentPage === "calendar.html")
-    ) {
+    if (hasTodos && (currentPage === "index.html" || currentPage === "calendar.html")) {
       window.location.href = "main.html";
-    } else if (
-      !hasTodos &&
-      (currentPage === "main.html" || currentPage === "calendar.html")
-    ) {
+    } else if (!hasTodos && (currentPage === "main.html" || currentPage === "calendar.html")) {
       window.location.href = "index.html";
     }
   },
   handleTitleClick: (e) => {
     e.preventDefault();
     pageManager.redirectToAppropriatePageData();
-  },
+  }
 };
 
 // 초기화
@@ -382,13 +362,11 @@ const init = () => {
       }
     });
 
-    // 모달 닫기 버튼 이벤트 리스너 추가
     const closeModalBtn = document.querySelector(".close");
     if (closeModalBtn) {
       closeModalBtn.addEventListener("click", uiManager.closeModal);
     }
 
-    // 모달 외부 클릭 시 닫기
     window.addEventListener("click", (event) => {
       const modal = document.getElementById("dateModal");
       if (event.target === modal) {
