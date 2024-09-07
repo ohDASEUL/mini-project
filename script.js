@@ -2,7 +2,7 @@
 const state = {
   todos: [],
   categories: ["업무", "취미", "집안일", "기타"],
-  date: new Date()
+  date: new Date(),
 };
 
 // 로컬 스토리지 관리
@@ -21,7 +21,7 @@ const storage = {
   },
   loadDarkModeState: () => {
     return localStorage.getItem("darkMode") === "true";
-  }
+  },
 };
 
 // 할 일 관리
@@ -38,12 +38,19 @@ const todoManager = {
     state.todos.push(newTodo);
     storage.saveTodos();
   },
+  toggleTodoComplete: (todoId, completed) => {
+    const todo = state.todos.find(t => t.id == todoId);
+    if (todo) {
+      todo.completed = completed;
+      storage.saveTodos();
+    }
+  },
   getDaysLeft: (dueDate) => {
     const today = new Date();
     const due = new Date(dueDate);
     const diffTime = due - today;
     return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-  }
+  },
 };
 
 // UI 관리
@@ -77,19 +84,20 @@ const uiManager = {
       : state.todos;
     uiManager.displayTodos(filteredTodos);
   },
+
   displayTodos: (filteredTodos = state.todos) => {
     const todoList = document.querySelector(".todolist");
     if (!todoList) return;
 
     todoList.innerHTML = "";
-    filteredTodos.forEach((todo, index) => {
+    filteredTodos.forEach((todo) => {
       const daysLeft = todoManager.getDaysLeft(todo.date);
       const item = document.createElement("div");
       item.classList.add("item");
       item.innerHTML = `
         <span class="category">${todo.category}</span>
-        <input type="checkbox" id="task${index}" ${todo.completed ? "checked" : ""}/>
-        <label for="task${index}">${todo.todo}</label>
+        <input type="checkbox" id="task${todo.id}" ${todo.completed ? "checked" : ""} data-id="${todo.id}"/>
+        <label for="task${todo.id}">${todo.todo}</label>
         <span class="days-left">${daysLeft}일 남음</span>
         <img src="icon/${todo.starred ? "full_star.svg" : "star.svg"}" alt="star" class="icon star" data-id="${todo.id}"/>
         <img src="icon/trash.svg" alt="trash" class="icon trash" data-id="${todo.id}"/>
@@ -98,12 +106,12 @@ const uiManager = {
     });
     uiManager.addEventListeners();
   },
+
   addEventListeners: () => {
     document.querySelectorAll('.todolist input[type="checkbox"]').forEach((checkbox) => {
       checkbox.addEventListener("change", function () {
-        const todoId = this.id.replace("task", "");
-        state.todos[todoId].completed = this.checked;
-        storage.saveTodos();
+        const todoId = this.dataset.id;
+        todoManager.toggleTodoComplete(todoId, this.checked);
         uiManager.displayTodos();
       });
     });
@@ -143,8 +151,14 @@ const uiManager = {
     const iconMappings = {
       ".system_mode img": ["icon/light.svg", "icon/dark.svg"],
       ".floating-button img": ["icon/dark_plus.svg", "icon/light_plus.svg"],
-      ".todo-write-button img": ["icon/dark_todo_write.svg", "icon/light_todo_write.svg"],
-      ".calendar-button img": ["icon/dark_calendar.svg", "icon/light_calendar.svg"],
+      ".todo-write-button img": [
+        "icon/dark_todo_write.svg",
+        "icon/light_todo_write.svg",
+      ],
+      ".calendar-button img": [
+        "icon/dark_calendar.svg",
+        "icon/light_calendar.svg",
+      ],
     };
 
     Object.entries(iconMappings).forEach(([selector, [darkSrc, lightSrc]]) => {
@@ -200,7 +214,9 @@ const uiManager = {
     const viewYear = state.date.getFullYear();
     const viewMonth = state.date.getMonth();
 
-    document.querySelector(".year-month").textContent = `${viewYear}년 ${viewMonth + 1}월`;
+    document.querySelector(".year-month").textContent = `${viewYear}년 ${
+      viewMonth + 1
+    }월`;
 
     const prevLast = new Date(viewYear, viewMonth, 0);
     const thisLast = new Date(viewYear, viewMonth + 1, 0);
@@ -211,21 +227,70 @@ const uiManager = {
     const TLDate = thisLast.getDate();
     const TLDay = thisLast.getDay();
 
-    const prevDates = Array.from({length: PLDay + 1}, (_, i) => PLDate - i).reverse();
-    const thisDates = Array.from({length: TLDate}, (_, i) => i + 1);
-    const nextDates = Array.from({length: 6 - TLDay}, (_, i) => i + 1);
+    const prevDates = Array.from(
+      { length: PLDay + 1 },
+      (_, i) => PLDate - i
+    ).reverse();
+    const thisDates = Array.from({ length: TLDate }, (_, i) => i + 1);
+    const nextDates = Array.from({ length: 6 - TLDay }, (_, i) => i + 1);
 
     const dates = [...prevDates, ...thisDates, ...nextDates];
 
     const today = new Date();
 
     dates.forEach((date, i) => {
-      const condition = i >= prevDates.length && i < prevDates.length + thisDates.length ? "this" : "other";
-      const isToday = condition === "this" && date === today.getDate() && viewMonth === today.getMonth() && viewYear === today.getFullYear() ? " today" : "";
-      dates[i] = `<div class="date"><span class="${condition}${isToday}">${date}</span></div>`;
+      const condition =
+        i >= prevDates.length && i < prevDates.length + thisDates.length
+          ? "this"
+          : "other";
+      const isToday =
+        condition === "this" &&
+        date === today.getDate() &&
+        viewMonth === today.getMonth() &&
+        viewYear === today.getFullYear()
+          ? " today"
+          : "";
+      dates[i] = `<div class="date" data-date="${viewYear}-${
+        viewMonth + 1
+      }-${date}"><span class="${condition}${isToday}">${date}</span></div>`;
     });
 
     document.querySelector(".dates").innerHTML = dates.join("");
+
+    // 날짜 클릭 이벤트 추가
+    document.querySelectorAll(".date").forEach((dateEl) => {
+      dateEl.addEventListener("click", () => {
+        const dateStr = dateEl.dataset.date;
+        uiManager.openModal(dateStr);
+      });
+    });
+  },
+
+  calculateCompletionRate: (todos) => {
+    if (todos.length === 0) return 0;
+    const completedTodos = todos.filter((todo) => todo.completed);
+    return Math.round((completedTodos.length / todos.length) * 100);
+  },
+  openModal: (dateStr) => {
+    const modal = document.getElementById("dateModal");
+    const modalDate = document.getElementById("modalDate");
+    const progressBar = document.getElementById("progressBar");
+    const progressText = document.getElementById("progressText");
+
+    modalDate.textContent = dateStr;
+
+     // 해당 날짜의 할 일 목록을 가져와서 표시
+     const todos = state.todos.filter((todo) => todo.date === dateStr);
+     const completionRate = uiManager.calculateCompletionRate(todos);
+ 
+     progressBar.style.width = `${completionRate}%`;
+     progressText.textContent = `${completionRate}%`;
+ 
+     modal.style.display = "block";
+  },
+  closeModal: () => {
+    const modal = document.getElementById("dateModal");
+    modal.style.display = "none";
   },
   initDateInput: () => {
     const dateInput = document.getElementById("date-input");
@@ -242,7 +307,7 @@ const uiManager = {
     const arrow = document.querySelector(".arrow");
     dropdownContent.classList.toggle("show");
     arrow.classList.toggle("up");
-  }
+  },
 };
 
 // 페이지 관리
@@ -251,19 +316,22 @@ const pageManager = {
     const hasTodos = state.todos.length > 0;
     const currentPage = window.location.pathname.split("/").pop();
 
-    if (hasTodos && currentPage === "index.html") {
+    if (
+      hasTodos &&
+      (currentPage === "index.html" || currentPage === "calendar.html")
+    ) {
       window.location.href = "main.html";
-    } else if (!hasTodos && currentPage === "main.html") {
+    } else if (
+      !hasTodos &&
+      (currentPage === "main.html" || currentPage === "calendar.html")
+    ) {
       window.location.href = "index.html";
     }
   },
   handleTitleClick: (e) => {
     e.preventDefault();
-    const hasTodos = state.todos.length > 0;
-    if (!hasTodos) {
-      window.location.href = "index.html";
-    }
-  }
+    pageManager.redirectToAppropriatePageData();
+  },
 };
 
 // 초기화
@@ -311,6 +379,20 @@ const init = () => {
           else if (className === "go-today") state.date = new Date();
           uiManager.renderCalendar();
         });
+      }
+    });
+
+    // 모달 닫기 버튼 이벤트 리스너 추가
+    const closeModalBtn = document.querySelector(".close");
+    if (closeModalBtn) {
+      closeModalBtn.addEventListener("click", uiManager.closeModal);
+    }
+
+    // 모달 외부 클릭 시 닫기
+    window.addEventListener("click", (event) => {
+      const modal = document.getElementById("dateModal");
+      if (event.target === modal) {
+        uiManager.closeModal();
       }
     });
   } else if (currentPage === "main.html" || currentPage === "index.html") {
