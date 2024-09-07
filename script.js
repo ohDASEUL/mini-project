@@ -38,6 +38,11 @@ const todoManager = {
     state.todos.push(newTodo);
     storage.saveTodos();
   },
+  removeExpiredTodos: () => {
+    const today = new Date().setHours(0, 0, 0, 0);
+    state.todos = state.todos.filter(todo => new Date(todo.date).setHours(0, 0, 0, 0) >= today);
+    storage.saveTodos();
+  },
   toggleTodoComplete: (todoId, completed) => {
     const todo = state.todos.find(t => t.id == todoId);
     if (todo) {
@@ -46,11 +51,11 @@ const todoManager = {
     }
   },
   getDaysLeft: (dueDate) => {
-    const today = new Date();
-    const due = new Date(dueDate);
+    const today = new Date().setHours(0, 0, 0, 0);
+    const due = new Date(dueDate).setHours(0, 0, 0, 0);
     const diffTime = due - today;
     return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-  }
+  },
 };
 
 // UI 관리
@@ -85,26 +90,31 @@ const uiManager = {
     uiManager.displayTodos(filteredTodos);
   },
   displayTodos: (filteredTodos = state.todos) => {
+    todoManager.removeExpiredTodos(); // 마감일 만료된 to do list는 자동 제거
     const todoList = document.querySelector(".todolist");
     if (!todoList) return;
-
+  
     todoList.innerHTML = "";
     filteredTodos.forEach((todo) => {
       const daysLeft = todoManager.getDaysLeft(todo.date);
-      const item = document.createElement("div");
-      item.classList.add("item");
-      item.innerHTML = `
-        <span class="category">${todo.category}</span>
-        <input type="checkbox" id="task${todo.id}" ${todo.completed ? "checked" : ""} data-id="${todo.id}"/>
-        <label for="task${todo.id}">${todo.todo}</label>
-        <span class="days-left">${daysLeft}일 남음</span>
-        <img src="icon/${todo.starred ? "full_star.svg" : "star.svg"}" alt="star" class="icon star" data-id="${todo.id}"/>
-        <img src="icon/trash.svg" alt="trash" class="icon trash" data-id="${todo.id}"/>
-      `;
-      todoList.appendChild(item);
+      if (daysLeft >= 0) { // 마감일이 지나지 않은 할 일만 표시
+        const item = document.createElement("div");
+        item.classList.add("item");
+        item.innerHTML = `
+          <span class="category">${todo.category}</span>
+          <input type="checkbox" id="task${todo.id}" ${todo.completed ? "checked" : ""} data-id="${todo.id}"/>
+          <label for="task${todo.id}">${todo.todo}</label>
+          <span class="days-left">${daysLeft}일 남음</span>
+          <img src="icon/${todo.starred ? "full_star.svg" : "star.svg"}" alt="star" class="icon star" data-id="${todo.id}"/>
+          <img src="icon/trash.svg" alt="trash" class="icon trash" data-id="${todo.id}"/>
+        `;
+        todoList.appendChild(item);
+      }
     });
     uiManager.addEventListeners();
+    uiManager.toggleEmptyState(); // 할 일 목록이 비어있는지 확인하고 empty state를 토글
   },
+
   addEventListeners: () => {
     document.querySelectorAll('.todolist input[type="checkbox"]').forEach((checkbox) => {
       checkbox.addEventListener("change", function () {
@@ -317,6 +327,7 @@ const pageManager = {
 // 초기화
 const init = () => {
   storage.loadTodos();
+  todoManager.removeExpiredTodos(); // 초기화 시 만료된 할 일 제거
 
   const dropdownBtn = document.querySelector(".dropdown-btn");
   if (dropdownBtn) {
@@ -362,11 +373,13 @@ const init = () => {
       }
     });
 
+    // 모달 닫기 버튼 이벤트 리스너 추가
     const closeModalBtn = document.querySelector(".close");
     if (closeModalBtn) {
       closeModalBtn.addEventListener("click", uiManager.closeModal);
     }
 
+    // 모달 외부 클릭 시 닫기
     window.addEventListener("click", (event) => {
       const modal = document.getElementById("dateModal");
       if (event.target === modal) {
