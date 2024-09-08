@@ -309,12 +309,13 @@ const uiManager = {
 // 페이지 관리
 const pageManager = {
   redirectToAppropriatePageData: () => {
+    storage.loadTodos(); // 로컬 스토리지에서 todos를 로드
     const hasTodos = state.todos.length > 0;
     const currentPage = window.location.pathname.split("/").pop();
 
-    if (hasTodos && (currentPage === "index.html" || currentPage === "calendar.html")) {
+    if (hasTodos && (currentPage === "index.html" || currentPage === "create-todo.html")) {
       window.location.href = "main.html";
-    } else if (!hasTodos && (currentPage === "main.html" || currentPage === "calendar.html")) {
+    } else if (!hasTodos && (currentPage === "main.html" || currentPage === "create-todo.html")) {
       window.location.href = "index.html";
     }
   },
@@ -401,7 +402,10 @@ const init = () => {
 
   const systemModeBtn = document.querySelector(".system_mode");
   if (systemModeBtn) {
-    systemModeBtn.addEventListener("click", uiManager.toggleDarkMode);
+    systemModeBtn.addEventListener("click", () => {
+      uiManager.toggleDarkMode();
+      uiManager.updateIcons(); // 다크 모드 토글 후 아이콘 업데이트
+    });
   }
 
   const floatingBtn = document.querySelector(".floating-button");
@@ -409,7 +413,7 @@ const init = () => {
   if (floatingBtn && additionalIcons) {
     floatingBtn.addEventListener("click", () => {
       additionalIcons.style.display = additionalIcons.style.display === "flex" ? "none" : "flex";
-      uiManager.updateIcons();
+      uiManager.updateIcons(); // 플로팅 버튼 클릭 후 아이콘 업데이트
     });
   }
 
