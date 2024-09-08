@@ -1,8 +1,5 @@
 /* Reset */
-h1,
-ul,
-a,
-button {
+h1, ul, a, button {
   font-size: unset;
   font-weight: unset;
   list-style-type: none;
@@ -74,15 +71,12 @@ body {
   display: flex;
   justify-content: space-between;
   padding: 0 48px;
+  border: none;
 }
 
 .day_section li {
   font-size: 20px;
   font-weight: 400;
-}
-
-.day_section .dates {
-  border: none;
 }
 
 .day_section .today {
@@ -124,55 +118,82 @@ body {
 }
 
 /* Todo Form */
+.todo-form-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
 .todo-form {
-  display: inline-block;
-  text-align: center;
   width: 100%;
+  max-width: 600px;
+  background-color: #f5f5f5;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .todo-form h2 {
-  font-size: 20px;
-  margin-bottom: 30px;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
 }
 
 .form-group {
-  margin-bottom: 25px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
+  margin-bottom: 20px;
 }
 
 .form-group label {
-  align-self: flex-start;
+  display: block;
   margin-bottom: 5px;
-  font-weight: 400;
-  width: 50%;
-  text-align: left;
-  padding-left: 25%;
-  box-sizing: border-box;
+  font-weight: bold;
+  color: #555;
 }
 
 .form-group input,
 .form-group select {
-  width: 50%;
+  width: 100%;
   padding: 10px;
-  font-size: 12px;
-  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
 }
 
-/* Button Group */
 .btn-group {
   display: flex;
-  justify-content: center;
-  gap: 12px;
+  justify-content: space-between;
+  margin-top: 30px;
 }
 
 .cancel-btn,
 .submit-btn {
-  padding: 10px 40px;
-  border-radius: 10px;
-  border: 1px solid black;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.cancel-btn {
+  background-color: #ccc;
+  color: #333;
+}
+
+.submit-btn {
+  background-color: green;
+  color: white;
+}
+
+.cancel-btn:hover {
+  background-color: #bbb;
+}
+
+.submit-btn:hover {
+  background-color: #45a049;
 }
 
 /* Dropdown */
@@ -231,11 +252,6 @@ body {
   padding: 5px 0;
 }
 
-.dropdown-content a {
-  color: black;
-  display: block;
-}
-
 #confirmBtn {
   display: block;
   margin-left: auto;
@@ -288,7 +304,7 @@ body {
 .calendar {
   width: 100%;
   max-width: 600px;
-  margin: 50px auto;
+  margin: 20px auto;
   padding: 0 20px;
   box-sizing: border-box;
 }
@@ -301,7 +317,8 @@ body {
 }
 
 .year-month {
-  font-size: 35px;
+  font-size: 24px;
+  font-weight: 500;
 }
 
 .nav {
@@ -314,25 +331,15 @@ body {
   width: 40px;
   height: 40px;
   border: none;
-  font-size: 20px;
+  font-size: 18px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
 }
 
-.calendar {
-  width: 100%;
-  max-width: 600px;
-  margin: 20px auto;
-  padding: 0 20px;
-  box-sizing: border-box;
-}
-
 .day-main {
-  height: calc(
-    100vh - 200px
-  ); /* 달력의 전체 높이를 화면 높이에서 헤더 등의 높이를 뺀 값으로 설정 */
+  height: calc(100vh - 200px);
   display: flex;
   flex-direction: column;
   padding: 30px;
@@ -406,6 +413,7 @@ body {
   opacity: 0.5;
 }
 
+/* Modal */
 .modal {
   display: none;
   position: fixed;
@@ -453,7 +461,7 @@ body {
 .progress-bar {
   width: 0;
   height: 100%;
-  background-color: #4CAF50;
+  background-color: lightgreen;
   border-radius: 5px;
   transition: width 0.5s ease-in-out;
 }
@@ -501,6 +509,16 @@ body.dark-mode .todolist input:checked + label {
   color: #888;
 }
 
+body.dark-mode .day:nth-child(7n),
+body.dark-mode .date:nth-child(7n) {
+  color: lightcoral;
+}
+
+body.dark-mode .day:nth-child(7n - 1),
+body.dark-mode .date:nth-child(7n - 1) {
+  color: lightblue;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .l_wrapper {
@@ -525,6 +543,7 @@ body.dark-mode .todolist input:checked + label {
     bottom: 10px;
     right: 10px;
   }
+
   .day-main {
     height: calc(100vh - 150px);
   }
@@ -538,6 +557,17 @@ body.dark-mode .todolist input:checked + label {
     height: 20px;
     line-height: 20px;
     font-size: 0.9em;
+  }
+
+  .todo-form {
+    padding: 20px;
+  }
+
+  .form-group input,
+  .form-group select,
+  .cancel-btn,
+  .submit-btn {
+    font-size: 14px;
   }
 }
 
