@@ -90,14 +90,14 @@ const uiManager = {
     uiManager.displayTodos(filteredTodos);
   },
   displayTodos: (filteredTodos = state.todos) => {
-    todoManager.removeExpiredTodos(); // 마감일 만료된 to do list는 자동 제거
+    todoManager.removeExpiredTodos();
     const todoList = document.querySelector(".todolist");
     if (!todoList) return;
   
     todoList.innerHTML = "";
     filteredTodos.forEach((todo) => {
       const daysLeft = todoManager.getDaysLeft(todo.date);
-      if (daysLeft >= 0) { // 마감일이 지나지 않은 할 일만 표시
+      if (daysLeft >= 0) {
         const item = document.createElement("div");
         item.classList.add("item");
         item.innerHTML = `
@@ -112,9 +112,8 @@ const uiManager = {
       }
     });
     uiManager.addEventListeners();
-    uiManager.toggleEmptyState(); // 할 일 목록이 비어있는지 확인하고 empty state를 토글
+    uiManager.toggleEmptyState();
   },
-
   addEventListeners: () => {
     document.querySelectorAll('.todolist input[type="checkbox"]').forEach((checkbox) => {
       checkbox.addEventListener("change", function () {
@@ -309,13 +308,13 @@ const uiManager = {
 // 페이지 관리
 const pageManager = {
   redirectToAppropriatePageData: () => {
-    storage.loadTodos(); // 로컬 스토리지에서 todos를 로드
+    storage.loadTodos();
     const hasTodos = state.todos.length > 0;
     const currentPage = window.location.pathname.split("/").pop();
 
-    if (hasTodos && (currentPage === "index.html" || currentPage === "create-todo.html")) {
+    if (hasTodos && (currentPage === "index.html" || currentPage === "create-todo.html" || currentPage === "calendar.html")) {
       window.location.href = "main.html";
-    } else if (!hasTodos && (currentPage === "main.html" || currentPage === "create-todo.html")) {
+    } else if (!hasTodos && (currentPage === "main.html" || currentPage === "create-todo.html" || currentPage === "calendar.html")) {
       window.location.href = "index.html";
     }
   },
@@ -328,7 +327,7 @@ const pageManager = {
 // 초기화
 const init = () => {
   storage.loadTodos();
-  todoManager.removeExpiredTodos(); // 초기화 시 만료된 할 일 제거
+  todoManager.removeExpiredTodos();
 
   const dropdownBtn = document.querySelector(".dropdown-btn");
   if (dropdownBtn) {
@@ -374,13 +373,11 @@ const init = () => {
       }
     });
 
-    // 모달 닫기 버튼 이벤트 리스너 추가
     const closeModalBtn = document.querySelector(".close");
     if (closeModalBtn) {
       closeModalBtn.addEventListener("click", uiManager.closeModal);
     }
 
-    // 모달 외부 클릭 시 닫기
     window.addEventListener("click", (event) => {
       const modal = document.getElementById("dateModal");
       if (event.target === modal) {
@@ -404,7 +401,7 @@ const init = () => {
   if (systemModeBtn) {
     systemModeBtn.addEventListener("click", () => {
       uiManager.toggleDarkMode();
-      uiManager.updateIcons(); // 다크 모드 토글 후 아이콘 업데이트
+      uiManager.updateIcons();
     });
   }
 
@@ -413,7 +410,7 @@ const init = () => {
   if (floatingBtn && additionalIcons) {
     floatingBtn.addEventListener("click", () => {
       additionalIcons.style.display = additionalIcons.style.display === "flex" ? "none" : "flex";
-      uiManager.updateIcons(); // 플로팅 버튼 클릭 후 아이콘 업데이트
+      uiManager.updateIcons();
     });
   }
 
