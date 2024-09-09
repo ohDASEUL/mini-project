@@ -22,8 +22,30 @@ button {
     "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 }
 
+/* Color Variables */
+:root {
+  --color-black: #000;
+  --color-white: #fff;
+  --color-green: #8BE960;
+  --color-dark-green: #45a049;
+  --color-light-gray: #f5f5f5;
+  --color-gray: #ccc;
+  --color-dark-gray: #888;
+  --color-orange: orange;
+  --color-red: red;
+  --color-blue: blue;
+  --color-light-coral: lightcoral;
+  --color-light-blue: lightblue;
+
+  --color-dark-333: #333;
+  --color-medium-555: #555;
+  --color-light-bbb: #bbb;
+  --color-very-light-gray: #f0f0f0;
+  --color-off-white: #fefefe;
+}
+
 body {
-  background-color: black;
+  background-color: var(--color-black);
   margin: 0;
   min-height: 100vh;
   display: flex;
@@ -38,7 +60,7 @@ body {
   height: 100vh;
   max-height: 1024px;
   margin: 0 auto;
-  background-color: white;
+  background-color: var(--color-white);
   box-sizing: border-box;
   overflow-y: auto;
 }
@@ -84,7 +106,7 @@ body {
 
 .day_section .today {
   font-weight: 700;
-  color: green;
+  color: var(--color-green);
 }
 
 /* Empty State */
@@ -132,7 +154,7 @@ body {
 .todo-form {
   width: 100%;
   max-width: 600px;
-  background-color: #f5f5f5;
+  background-color: var(--color-light-gray);
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -142,7 +164,7 @@ body {
   font-size: 1.5rem;
   margin-bottom: 20px;
   text-align: center;
-  color: #333;
+  color: var(--color-dark-333);
 }
 
 .form-group {
@@ -153,14 +175,14 @@ body {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
-  color: #555;
+  color: var(--color-medium-555);
 }
 
 .form-group input,
 .form-group select {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--color-gray);
   border-radius: 5px;
   font-size: 16px;
 }
@@ -182,21 +204,21 @@ body {
 }
 
 .cancel-btn {
-  background-color: #ccc;
-  color: #333;
+  background-color: var(--color-gray);
+  color: var(--color-dark-333);
 }
 
 .submit-btn {
-  background-color: green;
-  color: white;
+  background-color: var(--color-green);
+  color: var(--color-white);
 }
 
 .cancel-btn:hover {
-  background-color: #bbb;
+  background-color: var(--color-light-bbb);
 }
 
 .submit-btn:hover {
-  background-color: #45a049;
+  background-color: var(--color-dark-green);
 }
 
 /* Dropdown */
@@ -207,8 +229,8 @@ body {
 }
 
 .dropdown-btn {
-  background-color: #000;
-  color: white;
+  background-color: var(--color-black);
+  color: var(--color-white);
   padding: 12px 16px;
   font-size: 16px;
   border-radius: 22px;
@@ -217,7 +239,7 @@ body {
 }
 
 .arrow {
-  border: solid white;
+  border: solid var(--color-white);
   border-width: 0 2px 2px 0;
   display: inline-block;
   padding: 3px;
@@ -233,13 +255,13 @@ body {
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: white;
+  background-color: var(--color-white);
   min-width: 185px;
   z-index: 1;
   padding: 10px;
   border-radius: 10px;
   margin-top: 10px;
-  border: 1px solid black;
+  border: 1px solid var(--color-black);
 }
 
 .dropdown-content.show {
@@ -259,8 +281,8 @@ body {
   display: block;
   margin-left: auto;
   padding: 5px 10px;
-  background-color: #000;
-  color: white;
+  background-color: var(--color-black);
+  color: var(--color-white);
   border-radius: 5px;
 }
 
@@ -270,7 +292,7 @@ body {
 }
 
 .todolist .item {
-  border: 5px solid black;
+  border: 5px solid var(--color-black);
   border-radius: 10px;
   margin-bottom: 30px;
   padding: 30px 15px;
@@ -291,12 +313,12 @@ body {
 
 .todolist input:checked + label {
   text-decoration: line-through;
-  color: #888;
+  color: var(--color-dark-gray);
 }
 
 .category {
   margin-right: 5px;
-  border: 1px solid black;
+  border: 1px solid var(--color-black);
 }
 
 .icon {
@@ -326,7 +348,7 @@ body {
 
 .nav {
   display: flex;
-  border: 1px solid black;
+  border: 1px solid var(--color-black);
   border-radius: 5px;
 }
 
@@ -362,7 +384,7 @@ body {
 .dates {
   display: flex;
   flex-wrap: wrap;
-  border: 1px solid #333;
+  border: 1px solid var(--color-dark-333);
   flex-grow: 1;
 }
 
@@ -371,8 +393,8 @@ body {
   height: auto;
   padding: 10px;
   text-align: right;
-  border-right: 1px solid #333;
-  border-bottom: 1px solid #333;
+  border-right: 1px solid var(--color-dark-333);
+  border-bottom: 1px solid var(--color-dark-333);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -390,12 +412,12 @@ body {
 
 .day:nth-child(7n),
 .date:nth-child(7n) {
-  color: red;
+  color: var(--color-red);
 }
 
 .day:nth-child(7n - 1),
 .date:nth-child(7n - 1) {
-  color: blue;
+  color: var(--color-blue);
 }
 
 .date span {
@@ -408,8 +430,8 @@ body {
 }
 
 .date span.today {
-  background-color: orange;
-  color: white;
+  background-color: var(--color-orange);
+  color: var(--color-white);
 }
 
 .other {
@@ -430,10 +452,10 @@ body {
 }
 
 .modal-content {
-  background-color: #fefefe;
+  background-color: var(--color-off-white);
   margin: 15% auto;
   padding: 20px;
-  border: 1px solid #888;
+  border: 1px solid var(--color-dark-gray);
   width: 80%;
   max-width: 500px;
   border-radius: 10px;
@@ -446,7 +468,7 @@ body {
 
 .progress-container {
   width: 100%;
-  background-color: #f0f0f0;
+  background-color: var(--color-very-light-gray);
   border-radius: 5px;
   margin-bottom: 20px;
   position: relative;
@@ -456,7 +478,7 @@ body {
 .progress-bar {
   width: 0;
   height: 100%;
-  background-color: #8BE960;
+  background-color: var(--color-green);
   border-radius: 5px;
   transition: width 0.5s ease-in-out;
 }
@@ -466,7 +488,7 @@ body {
   right: 5px;
   top: 50%;
   transform: translateY(-50%);
-  color: #000;
+  color: var(--color-black);
   font-weight: bold;
 }
 
@@ -482,7 +504,7 @@ body {
 
 #completedTodos,
 #incompleteTodos {
-  border: 1px solid black;
+  border: 1px solid var(--color-black);
   padding: 5px;
 }
 
@@ -504,24 +526,24 @@ body {
 }
 
 .modal-btn.primary {
-  background-color: #8BE960;
-  color: white;
+  background-color: var(--color-green);
+  color: var(--color-white);
 }
 
 /* Dark Mode */
 body.dark-mode {
-  background-color: white;
+  background-color: var(--color-white);
 }
 
 body.dark-mode .contents {
-  background-color: black;
-  color: white;
+  background-color: var(--color-black);
+  color: var(--color-white);
 }
 
 body.dark-mode .title,
 body.dark-mode .dropdown-btn,
 body.dark-mode #confirmBtn {
-  color: white;
+  color: var(--color-white);
 }
 
 body.dark-mode .day_section,
@@ -530,53 +552,54 @@ body.dark-mode .cancel-btn,
 body.dark-mode .submit-btn,
 body.dark-mode .todolist .item,
 body.dark-mode .dropdown-btn {
-  background-color: white;
-  color: black;
+  background-color: var(--color-white);
+  color: var(--color-black);
 }
 
 body.dark-mode .arrow {
-  border-color: black;
+  border-color: var(--color-black);
 }
 
 body.dark-mode .todolist input:checked + label {
-  color: #888;
+  color: var(--color-dark-gray);
 }
 
 body.dark-mode .day:nth-child(7n),
 body.dark-mode .date:nth-child(7n) {
-  color: lightcoral;
+  color: var(--color-light-coral);
 }
 
 body.dark-mode .day:nth-child(7n - 1),
 body.dark-mode .date:nth-child(7n - 1) {
-  color: lightblue;
+  color: var(--color-light-blue);
 }
 body.dark-mode .modal-content {
-  background-color: #333;
-  color: white;
+  background-color: var(--color-dark-333);
+  color: var(--color-white);
 }
 
 body.dark-mode .progress-container {
-  background-color: #555;
+  background-color: var(--color-medium-555);
 }
 
 body.dark-mode .progress-text {
-  color: white;
+  color: var(--color-white);
 }
 
 body.dark-mode .modal-btn {
-  background-color: #555;
-  color: white;
+  background-color: var(--color-medium-555);
+  color: var(--color-white);
 }
 
 body.dark-mode .modal-btn.primary {
-  background-color: #4caf50;
+  background-color: var(--color-dark-green);
 }
 
 body.dark-mode #completedTodos,
 body.dark-mode #incompleteTodos {
-  border: 1px solid white;
+  border: 1px solid var(--color-white);
 }
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .l_wrapper {
