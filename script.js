@@ -203,6 +203,18 @@ const uiManager = {
       }
     });
   },
+  toggleFloatingButton: () => {
+    const floatingBtn = document.querySelector(".floating-button");
+    const floatingBtnImg = floatingBtn.querySelector("img");
+    const isDarkMode = document.body.classList.contains("dark-mode");
+    const isOpen = floatingBtnImg.src.includes("x.svg");
+
+    if (isOpen) {
+      floatingBtnImg.src = isDarkMode ? "icon/dark_plus.svg" : "icon/light_plus.svg";
+    } else {
+      floatingBtnImg.src = isDarkMode ? "icon/dark_x.svg" : "icon/light_x.svg";
+    }
+  },
   updateWeekDates: () => {
     const weekdays = ["월", "화", "수", "목", "금", "토", "일"];
     const today = new Date();
@@ -517,6 +529,7 @@ const init = () => {
     systemModeBtn.addEventListener("click", () => {
       uiManager.toggleDarkMode();
       uiManager.updateIcons();
+      uiManager.toggleFloatingButton();
     });
   }
 
@@ -526,7 +539,7 @@ const init = () => {
     floatingBtn.addEventListener("click", () => {
       additionalIcons.style.display =
         additionalIcons.style.display === "flex" ? "none" : "flex";
-      uiManager.updateIcons();
+      uiManager.toggleFloatingButton();
     });
   }
 
