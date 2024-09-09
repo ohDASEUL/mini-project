@@ -93,6 +93,12 @@ const uiManager = {
     const todoList = document.querySelector(".todolist");
     if (!todoList) return;
 
+    filteredTodos.sort((a, b) => {
+      if (a.starred && !b.starred) return -1;
+      if (!a.starred && b.starred) return 1;
+      return new Date(a.date) - new Date(b.date);
+    });
+
     todoList.innerHTML = "";
     filteredTodos.forEach((todo) => {
       const daysLeft = todoManager.getDaysLeft(todo.date);
