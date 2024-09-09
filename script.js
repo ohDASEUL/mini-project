@@ -38,10 +38,14 @@ const todoManager = {
   },
   removeExpiredTodos: () => {
     const today = new Date().setHours(0, 0, 0, 0);
+    const prevLength = state.todos.length;
     state.todos = state.todos.filter(
       (todo) => new Date(todo.date).setHours(0, 0, 0, 0) >= today
     );
     storage.saveTodos();
+    if (prevLength > 0 && state.todos.length === 0) {
+      pageManager.redirectToIndex();
+    }
   },
   toggleTodoComplete: (todoId, completed) => {
     const todo = state.todos.find((t) => t.id == todoId);
@@ -92,6 +96,11 @@ const uiManager = {
     todoManager.removeExpiredTodos();
     const todoList = document.querySelector(".todolist");
     if (!todoList) return;
+
+    if (filteredTodos.length === 0) {
+      pageManager.redirectToIndex();
+      return;
+    }
 
     filteredTodos.sort((a, b) => {
       if (a.starred && !b.starred) return -1;
@@ -156,7 +165,13 @@ const uiManager = {
             state.todos.splice(index, 1);
           }
           storage.saveTodos();
-          uiManager.displayTodos();
+
+          // 모든 할 일이 삭제되었는지 확인
+          if (state.todos.length === 0) {
+            pageManager.redirectToIndex();
+          } else {
+            uiManager.displayTodos();
+          }
         }
       });
     });
@@ -411,6 +426,9 @@ const pageManager = {
     ) {
       window.location.href = "index.html";
     }
+  },
+  redirectToIndex: () => {
+    window.location.href = "index.html";
   },
   handleTitleClick: (e) => {
     e.preventDefault();
