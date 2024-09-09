@@ -48,13 +48,25 @@
     </div>
     <div id="dateModal" class="modal">
       <div class="modal-content">
-        <span class="close">&times;</span>
         <h2 id="modalDate"></h2>
         <div class="progress-container">
           <div id="progressBar" class="progress-bar"></div>
           <span id="progressText" class="progress-text"></span>
         </div>
-        <div id="modalContent"></div>
+        <div class="todo-sections">
+          <div class="todo-section">
+            <h3>완료된 할 일</h3>
+            <div id="completedTodos"></div>
+          </div>
+          <div class="todo-section">
+            <h3>미완료된 할 일</h3>
+            <div id="incompleteTodos"></div>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button class="modal-btn" id="closeModalBtn">닫기</button>
+          <button class="modal-btn primary" id="dynamicActionBtn"></button>
+        </div>
       </div>
     </div>
     <script src="script.js"></script>
