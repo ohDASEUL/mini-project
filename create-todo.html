@@ -1,36 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      as="style"
-      crossorigin
-      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css"
-    />
+    <title>할 일 생성</title>
     <link rel="stylesheet" href="styles.css" />
-    <title>To Do List</title>
   </head>
   <body>
     <div class="l_wrapper">
-      <div class="contents">
-        <header class="header">
-          <h1 class="title"><a href="index.html">TO DO LIST</a></h1>
-          <button class="system_mode">
-            <img src="./icon/dark.svg" alt="Icon" class="dark" />
-          </button>
-        </header>
-        <div class="todo-form-container">
-          <div class="todo-form">
-            <h2>✏️ 작성하기 ✏️</h2>
+      <header class="main-header">
+        <h1 id="할-일-관리" class="main-title">할 일 관리</h1>
+        <button class="system_mode">
+          <img src="./icon/dark.svg" alt="Dark Mode Toggle" />
+        </button>
+      </header>
+
+      <div class="content-wrapper">
+        <section class="todo-section">
+          <h2>✏️ 작성하기 ✏️</h2>
+          <form id="todo-form">
             <div class="form-group">
               <label for="todo-input">해야할 일</label>
-              <input type="text" id="todo-input" placeholder="할 일을 적어주세요">
+              <input type="text" id="todo-input" required />
             </div>
             <div class="form-group">
-              <label for="category-select">카테고리</label>
-              <select id="category-select">
+              <label for="category-select">카테고리 선택</label>
+              <select id="category-select" required>
                 <option value="">선택하세요</option>
                 <option value="업무">업무</option>
                 <option value="취미">취미</option>
@@ -40,14 +35,15 @@
             </div>
             <div class="form-group">
               <label for="date-input">마감일자</label>
-              <input type="date" id="date-input" min="">
+              <input type="date" id="date-input" required />
             </div>
             <div class="btn-group">
-              <button class="cancel-btn">취소</button>
-              <button class="submit-btn todo-submit-button">등록</button>
+              <button type="button" id="cancel-btn" class="cancel-btn">취소</button>
+              <button type="submit" id="submit-btn" class="submit-btn">등록</button>
             </div>
-          </div>
-        </div>
+          </form>
+        </section>
+      </div>
     </div>
     <script src="script.js"></script>
   </body>

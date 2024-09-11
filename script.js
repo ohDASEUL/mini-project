@@ -108,17 +108,13 @@ const uiManager = {
   },
   displayTodos: (filteredTodos = state.todos) => {
     todoManager.removeExpiredTodos();
-    const todoList = document.querySelector(".todo-list-container");
+    const todoList = document.querySelector(".todolist");
     if (!todoList) return;
 
     if (filteredTodos.length === 0) {
-      document.querySelector(".empty-state").style.display = "flex";
-      todoList.style.display = "none";
+      pageManager.redirectToIndex();
       return;
     }
-
-    document.querySelector(".empty-state").style.display = "none";
-    todoList.style.display = "block";
 
     filteredTodos.sort((a, b) => {
       if (a.starred && !b.starred) return -1;
@@ -131,21 +127,21 @@ const uiManager = {
       const daysLeft = todoManager.getDaysLeft(todo.date);
       if (daysLeft >= 0) {
         const item = document.createElement("div");
-        item.classList.add("todo-item");
+        item.classList.add("item");
         item.innerHTML = `
-                  <input type="checkbox" id="task${todo.id}" ${
+          <span class="category">${todo.category}</span>
+          <input type="checkbox" id="task${todo.id}" ${
           todo.completed ? "checked" : ""
         } data-id="${todo.id}"/>
-                  <label for="task${todo.id}">${todo.todo}</label>
-                  <span class="category">${todo.category}</span>
-                  <span class="days-left">${daysLeft}일 남음</span>
-                  <img src="icon/${
-                    todo.starred ? "full_star.svg" : "star.svg"
-                  }" alt="star" class="icon star" data-id="${todo.id}"/>
-                  <img src="icon/trash.svg" alt="trash" class="icon trash" data-id="${
-                    todo.id
-                  }"/>
-              `;
+          <label for="task${todo.id}">${todo.todo}</label>
+          <span class="days-left">${daysLeft}일 남음</span>
+          <img src="icon/${
+            todo.starred ? "full_star.svg" : "star.svg"
+          }" alt="star" class="icon star" data-id="${todo.id}"/>
+          <img src="icon/trash.svg" alt="trash" class="icon trash" data-id="${
+            todo.id
+          }"/>
+        `;
         todoList.appendChild(item);
       }
     });
@@ -199,15 +195,22 @@ const uiManager = {
   renderCalendar: () => {
     const yearMonth = document.querySelector(".year-month");
     const dates = document.querySelector(".dates");
+    
+    // 필요한 요소가 없으면 함수 실행을 중단합니다.
+    if (!yearMonth || !dates) {
+      console.log("캘린더 렌더링에 필요한 요소가 페이지에 없습니다.");
+      return;
+    }
+  
     const currentDate = state.date;
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
-
+  
     yearMonth.textContent = `${year}년 ${month + 1}월`;
-
+  
     const firstDay = new Date(year, month, 1).getDay();
     const lastDate = new Date(year, month + 1, 0).getDate();
-
+  
     let dateHTML = "";
     for (let i = 0; i < firstDay; i++) {
       dateHTML += '<div class="date"></div>';
@@ -216,7 +219,7 @@ const uiManager = {
       dateHTML += `<div class="date" data-date="${i}"><span>${i}</span></div>`;
     }
     dates.innerHTML = dateHTML;
-
+  
     // 오늘 날짜 표시
     const today = new Date();
     if (year === today.getFullYear() && month === today.getMonth()) {
@@ -302,8 +305,13 @@ const uiManager = {
 
 // 페이지 관리
 const pageManager = {
+  redirectToMain: () => {
+    window.location.href = "main.html";
+  },
+
   redirectToAppropriatePageData: () => {
     storage.loadTodos();
+    
     const hasTodos = state.todos.length > 0;
     const currentPage = window.location.pathname.split("/").pop();
 
@@ -318,7 +326,6 @@ const pageManager = {
   },
 };
 
-// 초기화 함수
 const init = () => {
   storage.loadTodos();
   todoManager.removeExpiredTodos();
@@ -337,33 +344,53 @@ const init = () => {
   document.querySelector(".todo-write-button")?.addEventListener("click", () => {
     window.location.href = "create-todo.html";
   });
-  document.querySelector(".modal .modal-close")?.addEventListener("click", () => {
-    document.querySelector(".modal").style.display = "none";
-  });
-  document.querySelector(".modal .modal-btn.primary")?.addEventListener("click", () => {
-    const todoInput = document.querySelector("#todo-input").value;
-    const categorySelect = document.querySelector("#category-select").value;
-    const dueDate = document.querySelector("#due-date").value;
 
-    if (todoInput && categorySelect && dueDate) {
-      todoManager.addTodo(todoInput, categorySelect, dueDate);
-      uiManager.displayTodos();
-      document.querySelector(".modal").style.display = "none";
-    }
-  });
-
-  // 캘린더 날짜 클릭 시 모달 열기
-  document.querySelector(".dates")?.addEventListener("click", (event) => {
-    if (event.target.classList.contains("date")) {
-      const selectedDate = event.target.dataset.date;
-      if (selectedDate) {
-        uiManager.openModal(`${state.date.getFullYear()}년 ${state.date.getMonth() + 1}월 ${selectedDate}일`);
+  // Todo 폼 제출 이벤트 리스너
+  const todoForm = document.getElementById("todo-form");
+  if (todoForm) {
+    todoForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const todoInput = document.getElementById("todo-input");
+      const categorySelect = document.getElementById("category-select");
+      const dateInput = document.getElementById("date-input");
+      if (!todoInput.value || !categorySelect.value || !dateInput.value) {
+        alert("모든 필드를 입력해주세요.");
+        return;
       }
-    }
-  });
+      try {
+        todoManager.addTodo(
+          todoInput.value,
+          categorySelect.value,
+          dateInput.value
+        );
+        console.log("할 일 추가 완료");
+        if (confirm("등록되었습니다. 메인 페이지로 이동하시겠습니까?")) {
+          console.log("main.html로 이동 시도");
+          window.location.href = "main.html";
+          console.log("main.html로 이동 명령 실행됨");
+        }
+      } catch (error) {
+        console.error("할 일 추가 중 오류 발생:", error);
+        alert("할 일 추가 중 오류가 발생했습니다. 다시 시도해 주세요.");
+      }
+    });
+  }
+
+  // 취소 버튼 이벤트 리스너
+  const cancelBtn = document.getElementById("cancel-btn");
+  if (cancelBtn) {
+    cancelBtn.addEventListener("click", (e) => {
+      e.preventDefault(); // 기본 동작 방지
+      if (confirm("작성을 취소하고 메인 페이지로 돌아가시겠습니까?")) {
+        console.log("index.html로 이동 시도");
+        window.location.href = "index.html"; // index.html로 이동
+        console.log("index.html로 이동 명령 실행됨");
+      }
+    });
+  }
 
   pageManager.redirectToAppropriatePageData();
 };
 
 // 초기화 호출
-init();
+document.addEventListener("DOMContentLoaded", init);

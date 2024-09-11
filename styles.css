@@ -97,19 +97,19 @@ body {
   gap: 20px;
 }
 
-/* Calendar Section */
-.calendar-section {
-  flex: 1;
-  background-color: var(--color-white);
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  display: flex;
-  flex-direction: column;
-  max-height: 80vh; /* 뷰포트 높이의 80%로 제한 */
-  overflow: hidden; /* 내용이 넘치면 숨김 */
+
+.calendar-section,
+.todo-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-white);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
+/* Calendar Section */
 .calendar {
   width: 100%;
   flex-shrink: 0;
@@ -334,6 +334,56 @@ body {
     color: var(--color-white);
 }
 
+.todo-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-group label {
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group select {
+  padding: 8px;
+  border: 1px solid var(--color-gray);
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.btn-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: auto; /* Push buttons to the bottom */
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.btn.cancel {
+  background-color: var(--color-light-gray);
+  color: var(--color-black);
+}
+
+.btn.submit {
+  background-color: var(--color-green);
+  color: var(--color-white);
+}
+
 /* Dark Mode */
 body.dark-mode {
     background-color: var(--color-dark-333);
@@ -379,6 +429,28 @@ body.dark-mode .modal-btn.primary {
 body.dark-mode #completedTodos,
 body.dark-mode #incompleteTodos {
     border: 1px solid var(--color-white);
+}
+
+body.dark-mode .calendar-section,
+body.dark-mode .todo-section {
+    background-color: var(--color-medium-555);
+    color: var(--color-white);
+}
+
+body.dark-mode .form-group input,
+body.dark-mode .form-group select {
+    background-color: var(--color-medium-555);
+    color: var(--color-white);
+    border-color: var(--color-light-bbb);
+}
+
+body.dark-mode .btn.cancel {
+    background-color: var(--color-dark-gray);
+    color: var(--color-white);
+}
+
+body.dark-mode .btn.submit {
+    background-color: var(--color-dark-green);
 }
 
 @media screen and (max-width: 768px) {
