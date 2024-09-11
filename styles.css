@@ -3,20 +3,20 @@ h1,
 ul,
 a,
 button {
-  font-size: unset;
-  font-weight: unset;
-  list-style-type: none;
-  padding: unset;
-  text-decoration: none;
-  color: inherit;
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
+    font-size: unset;
+    font-weight: unset;
+    list-style-type: none;
+    padding: unset;
+    text-decoration: none;
+    color: inherit;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
 }
 
 /* Typography */
 :root {
-  font-family: "Pretendard Variable", Pretendard, -apple-system,
+    font-family: "Pretendard Variable", Pretendard, -apple-system,
     BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
     "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
@@ -24,612 +24,355 @@ button {
 
 /* Color Variables */
 :root {
-  --color-black: #000;
-  --color-white: #fff;
-  --color-green: #8BE960;
-  --color-dark-green: #45a049;
-  --color-light-gray: #f5f5f5;
-  --color-gray: #ccc;
-  --color-dark-gray: #888;
-  --color-orange: orange;
-  --color-red: red;
-  --color-blue: blue;
-  --color-light-coral: lightcoral;
-  --color-light-blue: lightblue;
-
-  --color-dark-333: #333;
-  --color-medium-555: #555;
-  --color-light-bbb: #bbb;
-  --color-very-light-gray: #f0f0f0;
-  --color-off-white: #fefefe;
+    --color-black: #000;
+    --color-white: #fff;
+    --color-green: #8BE960;
+    --color-dark-green: #45a049;
+    --color-light-gray: #f5f5f5;
+    --color-gray: #ccc;
+    --color-dark-gray: #888;
+    --color-orange: orange;
+    --color-red: red;
+    --color-blue: blue;
+    --color-light-coral: lightcoral;
+    --color-light-blue: lightblue;
+    --color-dark-333: #333;
+    --color-medium-555: #555;
+    --color-light-bbb: #bbb;
+    --color-very-light-gray: #f0f0f0;
+    --color-off-white: #fefefe;
+    --color-background: #F8EFE0;
 }
 
 body {
-  background-color: var(--color-black);
-  margin: 0;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    background-color: var(--color-background);
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Layout */
 .l_wrapper {
-  width: 100%;
-  max-width: 768px;
-  height: 100vh;
-  max-height: 1024px;
-  margin: 0 auto;
-  background-color: var(--color-white);
-  box-sizing: border-box;
-  overflow-y: auto;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .contents {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }
 
 /* Header */
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--color-white);
+    padding: 10px 20px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
-.title {
-  font-size: 2.5rem;
-  flex: 1;
-  font-weight: bold;
-  text-align: center;
+.main-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
 }
 
-/* Day Section */
-.day_section {
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+.system_mode {
+    background: none;
+    border: none;
+    cursor: pointer;
 }
 
-.day_section ul {
-  display: flex;
-  justify-content: space-between;
-  padding: 0 48px;
-  border: none;
+/* Content Wrapper */
+.content-wrapper {
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+    flex-grow: 1;
 }
 
-.day_section li {
-  font-size: 20px;
-  font-weight: 400;
+/* Calendar Section */
+.calendar-section {
+    flex: 1;
+    background-color: var(--color-white);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.day_section .today {
-  font-weight: 700;
-  color: var(--color-green);
-}
-
-/* Empty State */
-.empty-state {
-  flex-grow: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 30px;
-}
-
-/* Floating Button */
-.floating {
-  position: absolute;
-  bottom: 20px;
-  right: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
-
-.additional-icons {
-  display: none;
-  flex-direction: column;
-  margin-bottom: 5px;
-}
-
-.additional-icons button,
-.floating-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 5px;
-}
-
-/* Todo Form */
-.todo-form-container {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-}
-
-.todo-form {
-  width: 100%;
-  max-width: 600px;
-  background-color: var(--color-light-gray);
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.todo-form h2 {
-  font-size: 1.5rem;
-  margin-bottom: 20px;
-  text-align: center;
-  color: var(--color-dark-333);
-}
-
-.form-group {
-  margin-bottom: 20px;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-  color: var(--color-medium-555);
-}
-
-.form-group input,
-.form-group select {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid var(--color-gray);
-  border-radius: 5px;
-  font-size: 16px;
-}
-
-.btn-group {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 30px;
-}
-
-.cancel-btn,
-.submit-btn {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.cancel-btn {
-  background-color: var(--color-gray);
-  color: var(--color-dark-333);
-}
-
-.submit-btn {
-  background-color: var(--color-green);
-  color: var(--color-white);
-}
-
-.cancel-btn:hover {
-  background-color: var(--color-light-bbb);
-}
-
-.submit-btn:hover {
-  background-color: var(--color-dark-green);
-}
-
-/* Dropdown */
-.dropdown {
-  position: relative;
-  display: inline-block;
-  margin: 34px 0 10px 84px;
-}
-
-.dropdown-btn {
-  background-color: var(--color-black);
-  color: var(--color-white);
-  padding: 12px 16px;
-  font-size: 16px;
-  border-radius: 22px;
-  display: flex;
-  align-items: center;
-}
-
-.arrow {
-  border: solid var(--color-white);
-  border-width: 0 2px 2px 0;
-  display: inline-block;
-  padding: 3px;
-  margin-left: 10px;
-  transform: rotate(45deg);
-  transition: transform 0.3s;
-}
-
-.arrow.up {
-  transform: rotate(-135deg);
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: var(--color-white);
-  min-width: 185px;
-  z-index: 1;
-  padding: 10px;
-  border-radius: 10px;
-  margin-top: 10px;
-  border: 1px solid var(--color-black);
-}
-
-.dropdown-content.show {
-  display: block;
-}
-
-.filter-options {
-  margin-bottom: 10px;
-}
-
-.dropdown-content label {
-  display: block;
-  padding: 5px 0;
-}
-
-#confirmBtn {
-  display: block;
-  margin-left: auto;
-  padding: 5px 10px;
-  background-color: var(--color-black);
-  color: var(--color-white);
-  border-radius: 5px;
-}
-
-/* Todo List */
-.todolist {
-  margin: 0 20px;
-}
-
-.todolist .item {
-  border: 2px solid var(--color-black);
-  border-radius: 10px;
-  margin-bottom: 15px;
-  padding: 15px 10px;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-
-
-.todolist input[type="checkbox"] {
-  width: 20px;
-  height: 20px;
-  border-radius: 6px;
-  margin-right: 10px;
-  flex-shrink: 0;
-}
-
-.todolist label {
-  flex: 1;
-  font-size: 14px;
-  word-break: break-word;
-  min-width: 0;
-}
-
-.todolist input:checked + label {
-  text-decoration: line-through;
-  color: var(--color-dark-gray);
-}
-
-.category {
-  margin: 5px 5px 5px 0;
-  border: 1px solid var(--color-black);
-  padding: 2px 5px;
-  font-size: 12px;
-  white-space: nowrap;
-}
-
-.icon {
-  margin-left: 10px;
-  flex-shrink: 0;
-}
-
-/* Calendar */
 .calendar {
-  width: 100%;
-  max-width: 600px;
-  margin: 20px auto;
-  padding: 0 20px;
-  box-sizing: border-box;
+    width: 100%;
 }
 
 .calendar-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
 .year-month {
-  font-size: 24px;
-  font-weight: 500;
+    font-size: 24px;
+    font-weight: bold;
 }
 
 .nav {
-  display: flex;
-  border: 1px solid var(--color-black);
-  border-radius: 5px;
+    display: flex;
+    gap: 10px;
 }
 
 .nav-btn {
-  width: 40px;
-  height: 40px;
-  border: none;
-  font-size: 18px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
+    background-color: var(--color-green);
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: var(--color-white);
 }
 
 .day-main {
-  height: calc(100vh - 200px);
-  display: flex;
-  flex-direction: column;
-  padding: 30px;
+    height: calc(100% - 60px);
+    display: flex;
+    flex-direction: column;
 }
 
 .days {
-  display: flex;
-  margin-bottom: 10px;
-}
-
-.day {
-  width: calc(100% / 7);
-  text-align: center;
-  padding: 10px 0;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 10px;
 }
 
 .dates {
-  display: flex;
-  flex-wrap: wrap;
-  border: 1px solid var(--color-dark-333);
-  flex-grow: 1;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-auto-rows: 1fr;
+    gap: 5px;
+    flex-grow: 1;
 }
 
 .date {
-  width: calc(100% / 7);
-  height: auto;
-  padding: 10px;
-  text-align: right;
-  border-right: 1px solid var(--color-dark-333);
-  border-bottom: 1px solid var(--color-dark-333);
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-end;
-}
-
-.date:nth-child(7n) {
-  border-right: none;
-}
-
-.date:nth-last-child(-n + 7) {
-  border-bottom: none;
-}
-
-.day:nth-child(7n),
-.date:nth-child(7n) {
-  color: var(--color-red);
-}
-
-.day:nth-child(7n - 1),
-.date:nth-child(7n - 1) {
-  color: var(--color-blue);
+    aspect-ratio: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
 }
 
 .date span {
-  display: inline-block;
-  width: 24px;
-  height: 24px;
-  line-height: 24px;
-  border-radius: 50%;
-  text-align: center;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    border-radius: 50%;
+    text-align: center;
 }
 
 .date span.today {
-  background-color: var(--color-orange);
-  color: var(--color-white);
+    background-color: var(--color-orange);
+    color: var(--color-white);
 }
 
 .other {
-  opacity: 0.5;
+    opacity: 0.5;
+}
+
+/* Todo Section */
+.todo-section {
+    flex: 1;
+    background-color: var(--color-white);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+.empty-state {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    font-size: 18px;
+    color: var(--color-dark-gray);
+}
+
+.todo-write-button {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--color-green);
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.todo-write-button img {
+    width: 30px;
+    height: 30px;
 }
 
 /* Modal */
 .modal {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.4);
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal-content {
-  background-color: var(--color-off-white);
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid var(--color-dark-gray);
-  width: 80%;
-  max-width: 500px;
-  border-radius: 10px;
+    background-color: var(--color-off-white);
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid var(--color-dark-gray);
+    width: 80%;
+    max-width: 500px;
+    border-radius: 10px;
 }
 
 #modalDate {
-  font-size: 1.5em;
-  margin-bottom: 20px;
+    font-size: 1.5em;
+    margin-bottom: 20px;
 }
 
 .progress-container {
-  width: 100%;
-  background-color: var(--color-very-light-gray);
-  border-radius: 5px;
-  margin-bottom: 20px;
-  position: relative;
-  height: 20px;
+    width: 100%;
+    background-color: var(--color-very-light-gray);
+    border-radius: 5px;
+    margin-bottom: 20px;
+    position: relative;
+    height: 20px;
 }
 
 .progress-bar {
-  width: 0;
-  height: 100%;
-  background-color: var(--color-green);
-  border-radius: 5px;
-  transition: width 0.5s ease-in-out;
+    width: 0;
+    height: 100%;
+    background-color: var(--color-green);
+    border-radius: 5px;
+    transition: width 0.5s ease-in-out;
 }
 
 .progress-text {
-  position: absolute;
-  right: 5px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--color-black);
-  font-weight: bold;
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-black);
+    font-weight: bold;
 }
 
 .todo-sections {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
 }
 
 .todo-section {
-  width: 48%;
+    width: 48%;
 }
 
 #completedTodos,
 #incompleteTodos {
-  border: 1px solid var(--color-black);
-  padding: 5px;
+    border: 1px solid var(--color-black);
+    padding: 5px;
 }
 
 .todo-section h3 {
-  margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 .modal-actions {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
 }
 
 .modal-btn {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .modal-btn.primary {
-  background-color: var(--color-green);
-  color: var(--color-white);
+    background-color: var(--color-green);
+    color: var(--color-white);
 }
 
 /* Dark Mode */
 body.dark-mode {
-  background-color: var(--color-white);
+    background-color: var(--color-dark-333);
 }
 
-body.dark-mode .contents {
-  background-color: var(--color-black);
-  color: var(--color-white);
+body.dark-mode .main-header,
+body.dark-mode .calendar-section,
+body.dark-mode .todo-section {
+    background-color: var(--color-medium-555);
+    color: var(--color-white);
 }
 
-body.dark-mode .title,
-body.dark-mode .dropdown-btn,
-body.dark-mode #confirmBtn {
-  color: var(--color-white);
+body.dark-mode .date {
+    border-color: var(--color-light-bbb);
 }
 
-body.dark-mode .day_section,
-body.dark-mode .dropdown-content,
-body.dark-mode .cancel-btn,
-body.dark-mode .submit-btn,
-body.dark-mode .todolist .item,
-body.dark-mode .dropdown-btn {
-  background-color: var(--color-white);
-  color: var(--color-black);
+body.dark-mode .empty-state {
+    color: var(--color-light-bbb);
 }
 
-body.dark-mode .arrow {
-  border-color: var(--color-black);
-}
-
-body.dark-mode .todolist input:checked + label {
-  color: var(--color-dark-gray);
-}
-
-body.dark-mode .day_section .today {
-  color: var(--color-dark-green);
-}
-
-body.dark-mode .day:nth-child(7n),
-body.dark-mode .date:nth-child(7n) {
-  color: var(--color-light-coral);
-}
-
-body.dark-mode .day:nth-child(7n - 1),
-body.dark-mode .date:nth-child(7n - 1) {
-  color: var(--color-light-blue);
-}
 body.dark-mode .modal-content {
-  background-color: var(--color-dark-333);
-  color: var(--color-white);
+    background-color: var(--color-dark-333);
+    color: var(--color-white);
 }
 
 body.dark-mode .progress-container {
-  background-color: var(--color-medium-555);
+    background-color: var(--color-medium-555);
 }
 
 body.dark-mode .progress-text {
-  color: var(--color-white);
+    color: var(--color-white);
 }
 
 body.dark-mode .modal-btn {
-  background-color: var(--color-medium-555);
-  color: var(--color-white);
+    background-color: var(--color-medium-555);
+    color: var(--color-white);
 }
 
 body.dark-mode .modal-btn.primary {
-  background-color: var(--color-dark-green);
+    background-color: var(--color-dark-green);
 }
 
 body.dark-mode #completedTodos,
 body.dark-mode #incompleteTodos {
-  border: 1px solid var(--color-white);
+    border: 1px solid var(--color-white);
 }
 
-@media screen and (min-width: 768px) {
-  .todolist {
-    margin: 0 84px;
-  }
-
-  .todolist .item {
-    padding: 30px 15px;
-    margin-bottom: 30px;
-  }
-
-  .todolist label {
-    font-size: 16px;
-  }
-
-  .category {
-    font-size: 14px;
-  }
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .content-wrapper {
+        flex-direction: column;
+    }
+    
+    .calendar-section,
+    .todo-section {
+        width: 100%;
+    }
 }
