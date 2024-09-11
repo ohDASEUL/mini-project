@@ -195,41 +195,52 @@ const uiManager = {
   renderCalendar: () => {
     const yearMonth = document.querySelector(".year-month");
     const dates = document.querySelector(".dates");
-    
-    // 필요한 요소가 없으면 함수 실행을 중단합니다.
+
     if (!yearMonth || !dates) {
       console.log("캘린더 렌더링에 필요한 요소가 페이지에 없습니다.");
       return;
     }
-  
+
     const currentDate = state.date;
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
-  
+
     yearMonth.textContent = `${year}년 ${month + 1}월`;
-  
+
     const firstDay = new Date(year, month, 1).getDay();
     const lastDate = new Date(year, month + 1, 0).getDate();
-  
+
     let dateHTML = "";
     for (let i = 0; i < firstDay; i++) {
       dateHTML += '<div class="date"></div>';
     }
     for (let i = 1; i <= lastDate; i++) {
-      dateHTML += `<div class="date" data-date="${i}"><span>${i}</span></div>`;
+      const fullDate = `${year}-${String(month + 1).padStart(2, "0")}-${String(
+        i
+      ).padStart(2, "0")}`;
+      dateHTML += `<div class="date" data-date="${fullDate}"><span>${i}</span></div>`;
     }
     dates.innerHTML = dateHTML;
-  
-    // 오늘 날짜 표시
+
     const today = new Date();
     if (year === today.getFullYear() && month === today.getMonth()) {
       const todayDate = today.getDate();
       const todayIndex = firstDay + todayDate - 1;
       const todayElement = dates.children[todayIndex];
       if (todayElement) {
-        todayElement.querySelector('span').classList.add("today");
+        todayElement.querySelector("span").classList.add("today");
       }
     }
+
+    // 날짜 클릭 이벤트 리스너 추가
+    dates.querySelectorAll(".date").forEach((dateElement) => {
+      dateElement.addEventListener("click", function () {
+        const clickedDate = this.dataset.date;
+        if (clickedDate) {
+          uiManager.openModal(clickedDate);
+        }
+      });
+    });
   },
   openModal: (dateStr) => {
     const modal = document.getElementById("dateModal");
@@ -238,8 +249,26 @@ const uiManager = {
     const incompleteTodos = document.getElementById("incompleteTodos");
     const progressBar = document.getElementById("progressBar");
     const progressText = document.getElementById("progressText");
-    const dynamicActionBtn = document.getElementById("dynamicActionBtn");
-    const closeModalBtn = document.getElementById("closeModalBtn");
+    const dynamicActionBtn = document.querySelector(
+      ".modal-actions button:not(#closeModalBtn)"
+    );
+    const closeModalBtn = document.querySelector(
+      ".modal-actions button#closeModalBtn"
+    );
+
+    if (
+      !modal ||
+      !modalDate ||
+      !completedTodos ||
+      !incompleteTodos ||
+      !progressBar ||
+      !progressText ||
+      !dynamicActionBtn ||
+      !closeModalBtn
+    ) {
+      console.error("모달에 필요한 요소가 없습니다.");
+      return;
+    }
 
     modalDate.textContent = dateStr;
 
@@ -265,11 +294,11 @@ const uiManager = {
     if (dateStr < today) {
       dynamicActionBtn.textContent = "오늘로 복사하기";
       dynamicActionBtn.onclick = () => uiManager.copyToToday(dateStr);
-      dynamicActionBtn.style.display = "block";
+      dynamicActionBtn.style.display = "inline-block";
     } else if (dateStr === today) {
       dynamicActionBtn.textContent = "이동하기";
       dynamicActionBtn.onclick = () => uiManager.navigateToToday();
-      dynamicActionBtn.style.display = "block";
+      dynamicActionBtn.style.display = "inline-block";
     } else {
       dynamicActionBtn.style.display = "none";
     }
@@ -311,7 +340,7 @@ const pageManager = {
 
   redirectToAppropriatePageData: () => {
     storage.loadTodos();
-    
+
     const hasTodos = state.todos.length > 0;
     const currentPage = window.location.pathname.split("/").pop();
 
@@ -340,10 +369,14 @@ const init = () => {
   uiManager.updateIcons();
 
   // 이벤트 리스너 추가
-  document.querySelector(".system_mode")?.addEventListener("click", uiManager.toggleDarkMode);
-  document.querySelector(".todo-write-button")?.addEventListener("click", () => {
-    window.location.href = "create-todo.html";
-  });
+  document
+    .querySelector(".system_mode")
+    ?.addEventListener("click", uiManager.toggleDarkMode);
+  document
+    .querySelector(".todo-write-button")
+    ?.addEventListener("click", () => {
+      window.location.href = "create-todo.html";
+    });
 
   // Todo 폼 제출 이벤트 리스너
   const todoForm = document.getElementById("todo-form");
