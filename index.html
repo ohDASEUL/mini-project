@@ -1,60 +1,80 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
+<html lang="ko">
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      as="style"
-      crossorigin
-      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css"
-    />
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
     <link rel="stylesheet" href="styles.css" />
     <title>할 일 관리</title>
-  </head>
-  <body>
+</head>
+<body>
     <header class="main-header">
-      <button class="system_mode">
-        <img src="./icon/dark.svg" alt="Icon" class="dark" />
-      </button>
-      <h1 class="main-title">할 일 관리</h1>
+        <h1 class="main-title">할 일 관리</h1>
+        <button class="system_mode">
+            <img src="./icon/dark.svg" alt="Dark Mode Toggle" />
+        </button>
     </header>
     <div class="content-wrapper">
-      <div class="calendar-section">
-        <!-- Calendar content from calendar.html -->
-        <div class="calendar">
-          <div class="calendar-header">
-            <div class="year-month"></div>
-            <div class="nav">
-              <button class="nav-btn go-prev">&lt;</button>
-              <button class="nav-btn go-today">오늘</button>
-              <button class="nav-btn go-next">&gt;</button>
+        <div class="calendar-section">
+            <div class="calendar">
+                <div class="calendar-header">
+                    <div class="year-month"></div>
+                    <div class="nav">
+                        <button class="nav-btn go-prev">&lt;</button>
+                        <button class="nav-btn go-today">오늘</button>
+                        <button class="nav-btn go-next">&gt;</button>
+                    </div>
+                </div>
+                <div class="day-main">
+                    <div class="days">
+                        <div class="day">월</div>
+                        <div class="day">화</div>
+                        <div class="day">수</div>
+                        <div class="day">목</div>
+                        <div class="day">금</div>
+                        <div class="day">토</div>
+                        <div class="day">일</div>
+                    </div>
+                    <div class="dates"></div>
+                </div>
             </div>
-          </div>
         </div>
-        <div class="day-main">
-          <div class="days">
-            <div class="day">월</div>
-            <div class="day">화</div>
-            <div class="day">수</div>
-            <div class="day">목</div>
-            <div class="day">금</div>
-            <div class="day">토</div>
-            <div class="day">일</div>
-          </div>
-          <div class="dates"></div>
+        <div class="todo-section">
+            <h2>할 일 목록</h2>
+            <div class="empty-state">
+                <p>등록된 TO DO LIST가 없습니다.</p>
+            </div>
+            <div class="todo-list-container">
+            </div>
+            <button class="todo-write-button">
+                <img src="icon/light_todo_write.svg" alt="Add Todo" />
+            </button>
         </div>
-      </div>
-      <div class="todo-section">
-        <h2>할 일 목록</h2>
-        <div class="empty-state">
-          <p>등록된 TO DO LIST가 없습니다.</p>
-        </div>
-        <button class="todo-write-button">
-          <img src="icon/light_todo_write.svg" alt="Todo Write" />
-        </button>
-      </div>
     </div>
+    <div id="dateModal" class="modal">
+        <div class="modal-content">
+            <h2 id="modalDate"></h2>
+            <div class="progress-container">
+                <div id="progressBar" class="progress-bar"></div>
+                <span id="progressText" class="progress-text"></span>
+            </div>
+            <div class="todo-sections">
+                <div class="todo-section">
+                    <h3>완료된 할 일</h3>
+                    <div id="completedTodos"></div>
+                </div>
+                <div class="todo-section">
+                    <h3>미완료된 할 일</h3>
+                    <div id="incompleteTodos"></div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="modal-btn" id="closeModalBtn">닫기</button>
+                <button class="modal-btn primary" id="dynamicActionBtn"></button>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
-  </body>
+</body>
 </html>
