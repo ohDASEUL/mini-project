@@ -77,6 +77,7 @@ const todoManager = {
 
 // UI 관리
 const uiManager = {
+  
   createCategoryOptions: () => {
     const categorySelect = document.getElementById("category-select");
     const filterOptions = document.querySelector(".filter-options");
@@ -112,7 +113,7 @@ const uiManager = {
     if (!todoList) return;
 
     if (filteredTodos.length === 0) {
-      pageManager.redirectToIndex();
+      todoList.innerHTML = '<li class="empty-state">할 일이 없습니다.</li>';
       return;
     }
 
@@ -126,14 +127,14 @@ const uiManager = {
     filteredTodos.forEach((todo) => {
       const daysLeft = todoManager.getDaysLeft(todo.date);
       if (daysLeft >= 0) {
-        const item = document.createElement("div");
+        const item = document.createElement("li");
         item.classList.add("item");
         item.innerHTML = `
-          <span class="category">${todo.category}</span>
+          <span class="category ${todo.category}">${todo.category}</span>
           <input type="checkbox" id="task${todo.id}" ${
           todo.completed ? "checked" : ""
         } data-id="${todo.id}"/>
-          <label for="task${todo.id}">${todo.todo}</label>
+          <label for="task${todo.id}" class="${todo.completed ? "completed" : ""}">${todo.todo}</label>
           <span class="days-left">${daysLeft}일 남음</span>
           <img src="icon/${
             todo.starred ? "full_star.svg" : "star.svg"

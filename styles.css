@@ -42,6 +42,10 @@ button {
   --color-very-light-gray: #f0f0f0;
   --color-off-white: #fefefe;
   --color-background: #f8efe0;
+  --color-category-work: #FFB3BA;    
+  --color-category-hobby: #BDBDFF;   
+  --color-category-home: #BAE1FF;    
+  --color-category-other: #FFFFBA;
 }
 
 body {
@@ -201,6 +205,69 @@ body {
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+}
+
+.todolist {
+  list-style-type: none;
+  padding: 0;
+}
+
+.item {
+  background-color: var(--color-light-gray);
+  border-radius: 8px;
+  margin-bottom: 10px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.item .category {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.8em;
+  margin-right: 10px;
+  color: var(--color-dark-333); 
+}
+
+.item .category.업무 {
+  background-color: var(--color-category-work);
+}
+
+.item .category.취미 {
+  background-color: var(--color-category-hobby);
+}
+
+.item .category.집안일 {
+  background-color: var(--color-category-home);
+}
+
+.item .category.기타 {
+  background-color: var(--color-category-other);
+}
+
+.item input[type="checkbox"]:checked + label {
+  text-decoration: line-through;
+  color: var(--color-dark-gray);
+}
+
+.item label {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.item .days-left {
+  font-size: 0.8em;
+  color: var(--color-dark-gray);
+  margin-right: 10px;
+}
+
+.item .icon {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  margin-left: 5px;
 }
 
 .empty-state {
