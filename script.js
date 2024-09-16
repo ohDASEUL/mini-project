@@ -243,6 +243,31 @@ const uiManager = {
       });
     });
   },
+  prevMonth: () => {
+    state.date.setMonth(state.date.getMonth() - 1);
+    uiManager.renderCalendar();
+  },
+
+  nextMonth: () => {
+    state.date.setMonth(state.date.getMonth() + 1);
+    uiManager.renderCalendar();
+  },
+
+  goToToday: () => {
+    state.date = new Date();
+    uiManager.renderCalendar();
+  },
+
+  addCalendarEventListeners: () => {
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const todayBtn = document.getElementById("todayBtn");
+
+    if (prevBtn) prevBtn.addEventListener("click", uiManager.prevMonth);
+    if (nextBtn) nextBtn.addEventListener("click", uiManager.nextMonth);
+    if (todayBtn) todayBtn.addEventListener("click", uiManager.goToToday);
+  },
+
   openModal: (dateStr) => {
     const modal = document.getElementById("dateModal");
     const modalDate = document.getElementById("modalDate");
@@ -362,6 +387,7 @@ const init = () => {
   uiManager.createCategoryOptions();
   uiManager.displayTodos();
   uiManager.renderCalendar();
+  uiManager.addCalendarEventListeners();
 
   const isDarkMode = storage.loadDarkModeState();
   if (isDarkMode) {
@@ -369,7 +395,6 @@ const init = () => {
   }
   uiManager.updateIcons();
 
-  // 이벤트 리스너 추가
   document
     .querySelector(".system_mode")
     ?.addEventListener("click", uiManager.toggleDarkMode);
