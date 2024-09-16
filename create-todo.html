@@ -7,43 +7,45 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="l_wrapper">
-      <header class="main-header">
-        <h1 id="할-일-관리" class="main-title">할 일 관리</h1>
-        <button class="system_mode">
-          <img src="./icon/dark.svg" alt="Dark Mode Toggle" />
-        </button>
-      </header>
+    <header class="main-header">
+      <h1 id="할-일-관리" class="main-title">할 일 관리</h1>
+      <button class="system_mode">
+        <img src="./icon/dark.svg" alt="Dark Mode Toggle" />
+      </button>
+    </header>
 
-      <div class="content-wrapper">
-        <section class="todo-section">
-          <h2>✏️ 작성하기 ✏️</h2>
-          <form id="todo-form">
-            <div class="form-group">
-              <label for="todo-input">해야할 일</label>
-              <input type="text" id="todo-input" required />
-            </div>
-            <div class="form-group">
-              <label for="category-select">카테고리 선택</label>
-              <select id="category-select" required>
-                <option value="">선택하세요</option>
-                <option value="업무">업무</option>
-                <option value="취미">취미</option>
-                <option value="집안일">집안일</option>
-                <option value="기타">기타</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="date-input">마감일자</label>
-              <input type="date" id="date-input" required />
-            </div>
-            <div class="btn-group">
-              <button type="button" id="cancel-btn" class="cancel-btn">취소</button>
-              <button type="submit" id="submit-btn" class="submit-btn">등록</button>
-            </div>
-          </form>
-        </section>
-      </div>
+    <div class="content-wrapper">
+      <section class="todo-section">
+        <h2>✏️ 작성하기 ✏️</h2>
+        <form id="todo-form">
+          <div class="form-group">
+            <label for="todo-input">해야할 일</label>
+            <input type="text" id="todo-input" required />
+          </div>
+          <div class="form-group">
+            <label for="category-select">카테고리 선택</label>
+            <select id="category-select" required>
+              <option value="">선택하세요</option>
+              <option value="업무">업무</option>
+              <option value="취미">취미</option>
+              <option value="집안일">집안일</option>
+              <option value="기타">기타</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="date-input">마감일자</label>
+            <input type="date" id="date-input" required />
+          </div>
+          <div class="btn-group">
+            <button type="button" id="cancel-btn" class="cancel-btn">
+              취소
+            </button>
+            <button type="submit" id="submit-btn" class="submit-btn">
+              등록
+            </button>
+          </div>
+        </form>
+      </section>
     </div>
     <script src="script.js"></script>
   </body>
