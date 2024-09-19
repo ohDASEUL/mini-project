@@ -16,12 +16,6 @@ const storage = {
   saveTodos: () => {
     localStorage.setItem("todos", JSON.stringify(state.todos));
   },
-  saveDarkModeState: (isDarkMode) => {
-    localStorage.setItem("darkMode", isDarkMode);
-  },
-  loadDarkModeState: () => {
-    return localStorage.getItem("darkMode") === "true";
-  },
 };
 
 // 할 일 관리
@@ -174,25 +168,7 @@ const uiManager = {
       });
     });
   },
-  toggleDarkMode: () => {
-    document.body.classList.toggle("dark-mode");
-    storage.saveDarkModeState(document.body.classList.contains("dark-mode"));
-    uiManager.updateIcons();
-  },
-  updateIcons: () => {
-    const isDarkMode = document.body.classList.contains("dark-mode");
-    const iconMappings = {
-      ".system_mode img": ["icon/light.svg", "icon/dark.svg"],
-      ".floating-button img": ["icon/dark_plus.svg", "icon/light_plus.svg"],
-    };
-
-    Object.entries(iconMappings).forEach(([selector, [darkSrc, lightSrc]]) => {
-      const element = document.querySelector(selector);
-      if (element) {
-        element.src = isDarkMode ? darkSrc : lightSrc;
-      }
-    });
-  },
+  
   renderCalendar: () => {
     const yearMonth = document.querySelector(".year-month");
     const dates = document.querySelector(".dates");
@@ -389,15 +365,6 @@ const init = () => {
   uiManager.renderCalendar();
   uiManager.addCalendarEventListeners();
 
-  const isDarkMode = storage.loadDarkModeState();
-  if (isDarkMode) {
-    document.body.classList.add("dark-mode");
-  }
-  uiManager.updateIcons();
-
-  document
-    .querySelector(".system_mode")
-    ?.addEventListener("click", uiManager.toggleDarkMode);
   document
     .querySelector(".todo-write-button")
     ?.addEventListener("click", () => {
