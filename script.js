@@ -19,15 +19,44 @@ const storage = {
 };
 
 function systemMode() {
-  const btn = document.getElementById('systemModeBtn');
-  const img = btn.querySelector('img');
-  
-  if (img.src.includes('dark.svg')) {
-      img.src = './icon/light.svg';
-      img.alt = 'Light Mode';
+  const header = document.querySelector(".main-header");
+  const body = document.body;
+  const btn = document.getElementById("systemModeBtn");
+  const img = btn.querySelector("img");
+  const calendarSection = document.querySelector(".calendar-section");
+  const yearMonth = document.querySelector(".year-month");
+  const days = document.querySelector(".days");
+  const dates = document.querySelector(".dates");
+
+  const todoSection = document.querySelector(".todo-section");
+  const todoSectionTitle = document.querySelector(".todo-section h2");
+  const todoWriteBtn = document.querySelector(".todo-write-button");
+  const todoWriteImg = todoWriteBtn.querySelector("img");
+
+  if (img.src.includes("dark.svg")) {
+    img.src = "./icon/light.svg";
+    img.alt = "Light Mode";
+    header.classList.add("dark-mode");
+    todoWriteImg.src = "icon/dark_todo_write.svg";
+    body.classList.add("dark-mode");
+    calendarSection.classList.add("dark-mode");
+    todoSection.classList.add("dark-mode");
+    yearMonth.classList.add("dark-mode");
+    days.classList.add("dark-mode");
+    dates.classList.add("dark-mode");
+    todoSectionTitle.classList.add("dark-mode");
   } else {
-      img.src = './icon/dark.svg';
-      img.alt = 'Dark Mode';
+    img.src = "./icon/dark.svg";
+    img.alt = "Dark Mode";
+    header.classList.remove("dark-mode");
+    todoWriteImg.src = "icon/light_todo_write.svg";
+    body.classList.remove("dark-mode");
+    calendarSection.classList.remove("dark-mode");
+    todoSection.classList.remove("dark-mode");
+    yearMonth.classList.remove("dark-mode");
+    days.classList.remove("dark-mode");
+    dates.classList.remove("dark-mode");
+    todoSectionTitle.classList.remove("dark-mode");
   }
 }
 
@@ -84,7 +113,6 @@ const todoManager = {
 
 // UI 관리
 const uiManager = {
-  
   createCategoryOptions: () => {
     const categorySelect = document.getElementById("category-select");
     const filterOptions = document.querySelector(".filter-options");
@@ -141,7 +169,9 @@ const uiManager = {
           <input type="checkbox" id="task${todo.id}" ${
           todo.completed ? "checked" : ""
         } data-id="${todo.id}"/>
-          <label for="task${todo.id}" class="${todo.completed ? "completed" : ""}">${todo.todo}</label>
+          <label for="task${todo.id}" class="${
+          todo.completed ? "completed" : ""
+        }">${todo.todo}</label>
           <span class="days-left">${daysLeft}일 남음</span>
           <img src="icon/${
             todo.starred ? "full_star.svg" : "star.svg"
@@ -181,7 +211,7 @@ const uiManager = {
       });
     });
   },
-  
+
   renderCalendar: () => {
     const yearMonth = document.querySelector(".year-month");
     const dates = document.querySelector(".dates");
