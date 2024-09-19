@@ -18,6 +18,19 @@ const storage = {
   },
 };
 
+function systemMode() {
+  const btn = document.getElementById('systemModeBtn');
+  const img = btn.querySelector('img');
+  
+  if (img.src.includes('dark.svg')) {
+      img.src = './icon/light.svg';
+      img.alt = 'Light Mode';
+  } else {
+      img.src = './icon/dark.svg';
+      img.alt = 'Dark Mode';
+  }
+}
+
 // 할 일 관리
 const todoManager = {
   addTodo: (todo, category, date) => {
