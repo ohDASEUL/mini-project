@@ -35,21 +35,24 @@
       .search-bar button:hover {
         background-color: #4cae4c;
       }
-      .book-list {
+      .book-list, .loan-list {
         margin-top: 20px;
       }
-      .book {
+      .book, .loan {
         display: flex;
         justify-content: space-between;
         margin-bottom: 10px;
         padding: 10px;
         border-bottom: 1px solid #ccc;
       }
-      .book:last-child {
+      .book:last-child, .loan:last-child {
         border-bottom: none;
       }
       button {
         padding: 5px 10px;
+      }
+      h2 {
+        text-align: center;
       }
     </style>
   </head>
@@ -64,7 +67,12 @@
       </div>
 
       <!-- 도서 목록 -->
+      <h2>도서 목록</h2>
       <div class="book-list" id="bookList"></div>
+
+      <!-- 대출 목록 -->
+      <h2>대출 목록</h2>
+      <div class="loan-list" id="loanList"></div>
     </div>
 
     <script src="script.js"></script>
