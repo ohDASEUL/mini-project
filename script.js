@@ -24,7 +24,7 @@ const bookstore = {
       title: "자바스크립트로 배우는 데이터 구조와 알고리즘",
       author: "Loiane Groner",
       available: true,
-    }
+    },
   ],
 };
 
@@ -38,3 +38,28 @@ bookstore.books.forEach((book) => {
     </div>
     `;
 });
+
+function bookSearch() {
+  const searchInput = document.getElementById("searchInput").value;
+  const filteredBooks = bookstore.books.filter((book) =>
+    book.title.includes(searchInput)
+  );
+
+  bookListElement.innerHTML = "";
+  filteredBooks.forEach((book) => {
+    bookListElement.innerHTML += `
+    <div class="book">
+        <span>${book.title}</span>
+        <span>${book.author}</span>
+    </div>
+    `;
+  });
+}
+
+document
+  .getElementById("searchInput")
+  .addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+      bookSearch();
+    }
+  });
