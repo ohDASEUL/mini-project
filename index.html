@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>서점 시스템</title>
+    <style>
+      .container {
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 10px;
+        border: 1px solid #ccc;
+      }
+      .search-bar {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+      .search-bar input {
+        width: 80%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      .search-bar button {
+        padding: 10px;
+        font-size: 16px;
+        border: none;
+        background-color: #5cb85c;
+        color: white;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+      .search-bar button:hover {
+        background-color: #4cae4c;
+      }
+      .book-list {
+        margin-top: 20px;
+      }
+      .book {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+      }
+      .book:last-child {
+        border-bottom: none;
+      }
+      button {
+        padding: 5px 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 style="text-align: center">자바스크립트 서점</h1>
+
+    <div class="container">
+      <!-- 검색 기능 -->
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="도서명을 입력하세요" />
+        <button id="searchButton" onclick="bookSearch()">검색</button>
+      </div>
+
+      <!-- 도서 목록 -->
+      <div class="book-list" id="bookList"></div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
