@@ -30,14 +30,32 @@ const bookstore = {
 
 const bookListElement = document.getElementById("bookList");
 
-bookstore.books.forEach((book) => {
-  bookListElement.innerHTML += `
-    <div class= "book">
-        <span>${book.title}</span>
-        <span>${book.author}</span>
-    </div>
-    `;
-});
+function toggleAvailable(bookIndex) {
+  const book = bookstore.books[bookIndex];
+  book.available = !book.available;
+  if(book.available){
+    alert('반납 되었습니다')
+  }else{
+    alert('대출 되었습니다')
+  }
+  
+  updateBookList();
+}
+
+function updateBookList() {
+  bookListElement.innerHTML = "";
+  bookstore.books.forEach((book, index) => {
+    bookListElement.innerHTML += `
+      <div class= "book">
+          <span>${book.title}</span>
+          <span>${book.author}</span>
+          <button onclick="toggleAvailable(${index})">${
+      book.available ? "대출" : "반납"
+    }</button>
+      </div> 
+      `;
+  });
+}
 
 function bookSearch() {
   const searchInput = document.getElementById("searchInput").value;
@@ -63,3 +81,4 @@ document
       bookSearch();
     }
   });
+updateBookList();
