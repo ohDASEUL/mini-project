@@ -19,7 +19,19 @@ recipeForm.addEventListener("submit", function(e) {
     const instruction  = instructions.value
     const level = difficulty.value
 
-    const newRecipe = new myRecipe(name, ingredientList,  instruction, level)
+    const newRecipe = new myRecipe(name, ingredientList, instruction, level)
 
-    console.log(newRecipe)
+    // console.log(newRecipe)
+    const recipesList = document.createElement('li');
+    recipesList.textContent = `레시피 이름 ${newRecipe.name} 재료: ${newRecipe.ingredients}, 난이도: ${newRecipe.difficulty}, 조리법: ${newRecipe.instructions}`;
+    recipes.appendChild(recipesList);
+    
+    recipeName.value = '';
+    ingredients.value = '';
+    instructions.value = '';
+    difficulty.value = '쉬움';
 })
+
+
+const recipes = document.getElementById('recipes');
+
