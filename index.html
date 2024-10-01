@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>나만의 레시피 관리하기</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>나만의 레시피 관리하기</h1>
+    </header>
+
+    <section id="recipe-form">
+      <h2>새 레시피 추가</h2>
+      <form id="add-recipe-form">
+        <label for="recipe-name">레시피 이름:</label>
+        <input type="text" id="recipe-name" required />
+
+        <label for="ingredients">재료 (콤마로 구분):</label>
+        <input type="text" id="ingredients" required />
+
+        <label for="instructions">조리법:</label>
+        <textarea id="instructions" rows="4" required></textarea>
+
+        <label for="difficulty">난이도:</label>
+        <select id="difficulty" required>
+          <option value="쉬움">쉬움</option>
+          <option value="보통">보통</option>
+          <option value="어려움">어려움</option>
+        </select>
+
+        <button type="submit">레시피 추가</button>
+      </form>
+    </section>
+
+    <section id="recipe-list">
+      <h2>레시피 목록</h2>
+      <ul id="recipes">
+        <!-- 레시피 리스트가 여기에 표시됩니다 -->
+      </ul>
+    </section>
+
+    <script src="script.js"></script>
+  </body>
+</html>
