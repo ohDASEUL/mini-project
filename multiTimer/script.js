@@ -61,6 +61,14 @@ stopwatchStop.onclick = function() {
     clearInterval(intervalId)
 }
 
+stopwatchReset.onclick = function() {
+    clearInterval(intervalId)
+    tenMills = 0; seconds = 0; minutes = 0;
+    stopwatchTenMills.textContent = "00"
+    stopwatchSeconds.textContent = "00"
+    stopwatchMinutes.textContent = "00"
+}
+
 // 10ms 마다 시간에 대한 숫자가 증가
 function operateTimer() {
     tenMills++;
