@@ -1,0 +1,156 @@
+/* body 태그 내에서 초기화 작업 */
+body, h1, h2, input, button {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 전체 레이아웃 */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f9;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    text-align: center;
+}
+
+/* 현재 시간 */
+.current-time h1 {
+    font-size: 2.5em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* 타이머와 스톱워치 섹션 */
+.main-functions {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.timer, .stopwatch {
+    flex: 1;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+    color: #555;
+}
+
+/* 타이머 */
+.time-inputs {
+    margin-bottom: 15px;
+}
+
+.time-inputs input {
+    width: 60px;
+    margin: 0 5px;
+    padding: 10px;
+    font-size: 1.1em;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.quick-timers button {
+    margin: 5px;
+    padding: 10px 15px;
+    font-size: 1em;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.quick-timers button:hover {
+    background-color: #0056b3;
+}
+
+.timer-controls button {
+    margin: 5px 10px;
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.timer-controls button:nth-child(2) {
+    background-color: #dc3545;
+}
+
+.timer-controls button:hover {
+    background-color: #218838;
+}
+
+.timer-controls button:nth-child(2):hover {
+    background-color: #c82333;
+}
+
+/* 스톱워치 */
+.stopwatch-display {
+    font-size: 2.5em;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.stopwatch-controls button {
+    margin: 5px 10px;
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #17a2b8;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.stopwatch-controls button:nth-child(2) {
+    background-color: #ffc107;
+}
+
+.stopwatch-controls button:nth-child(3) {
+    background-color: #dc3545;
+}
+
+.stopwatch-controls button:hover {
+    background-color: #138496;
+}
+
+.stopwatch-controls button:nth-child(2):hover {
+    background-color: #e0a800;
+}
+
+.stopwatch-controls button:nth-child(3):hover {
+    background-color: #c82333;
+}
+
+/* 알람 */
+.alarm {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.alarm input {
+    padding: 10px;
+    font-size: 1.2em;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}

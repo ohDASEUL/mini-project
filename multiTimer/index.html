@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>멀티 타이머</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="current-time">
+            <h1 id="time-display">현재 시간 00:00:00</h1>
+        </div>
+
+        <div class="main-functions">
+            <div class="timer">
+                <h2>타이머</h2>
+                <div class="time-inputs">
+                    <input type="number" placeholder="시" min="0" max="23">
+                    <input type="number" placeholder="분" min="0" max="59">
+                    <input type="number" placeholder="초" min="0" max="59">
+                </div>
+                <div class="quick-timers">
+                    <button>5분</button>
+                    <button>10분</button>
+                    <button>30분</button>
+                </div>
+                <div class="timer-controls">
+                    <button>시작</button>
+                    <button>리셋</button>
+                </div>
+            </div>
+
+            <div class="stopwatch">
+                <h2>스톱워치</h2>
+                <div class="stopwatch-display">
+                    <span>00:00:00</span>
+                </div>
+                <div class="stopwatch-controls">
+                    <button>시작</button>
+                    <button>중지</button>
+                    <button>리셋</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="alarm">
+            <h2>알람</h2>
+            <input type="time">
+        </div>
+    </div>
+</body>
+</html>
