@@ -26,6 +26,8 @@ function getClock() {
     }
 }
 
+// stopwatch 부분
+
 // 12시간제 버튼 클릭 시 동작
 toggleButton.addEventListener('click', () => {
     is24HourFormat = !is24HourFormat;
@@ -48,8 +50,15 @@ const stopwatchStart = document.querySelector('.stopwatch-controls #start');
 const stopwatchStop = document.querySelector('.stopwatch-controls #stop');
 const stopwatchReset = document.querySelector('.stopwatch-controls #reset');
 
+let intervalId;
+
 stopwatchStart.onclick = function () {
-    setInterval(operateTimer, 10)
+    clearInterval(intervalId);
+    intervalId = setInterval(operateTimer, 10);
+}
+
+stopwatchStop.onclick = function() {
+    clearInterval(intervalId)
 }
 
 // 10ms 마다 시간에 대한 숫자가 증가
