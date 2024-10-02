@@ -55,6 +55,12 @@ stopwatchStart.onclick = function () {
 // 10ms 마다 시간에 대한 숫자가 증가
 function operateTimer() {
     tenMills++;
-    stopwatchTenMills.textContent = tenMills 
+    stopwatchTenMills.textContent = tenMills
+    if(tenMills > 99){
+        seconds++
+        stopwatchSeconds.textContent = seconds
+        tenMills = 0
+        stopwatchTenMills.textContent = "00"
+    }
 }
 
