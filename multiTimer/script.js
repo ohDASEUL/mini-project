@@ -34,3 +34,27 @@ toggleButton.addEventListener('click', () => {
 
 getClock();
 setInterval(getClock, 1000);
+
+
+let minutes = 0
+let seconds = 0
+let tenMills = 0
+
+const stopwatchMinutes = document.getElementById('minutes');
+const stopwatchSeconds = document.getElementById('seconds');
+const stopwatchTenMills = document.getElementById('tenMills');
+
+const stopwatchStart = document.querySelector('.stopwatch-controls #start');
+const stopwatchStop = document.querySelector('.stopwatch-controls #stop');
+const stopwatchReset = document.querySelector('.stopwatch-controls #reset');
+
+stopwatchStart.onclick = function () {
+    setInterval(operateTimer, 10)
+}
+
+// 10ms 마다 시간에 대한 숫자가 증가
+function operateTimer() {
+    tenMills++;
+    stopwatchTenMills.textContent = tenMills 
+}
+
