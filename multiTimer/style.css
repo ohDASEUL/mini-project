@@ -1,5 +1,5 @@
 /* body 태그 내에서 초기화 작업 */
-body, h1, h2, input, button {
+body, h1, h2, p, input, button {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -24,7 +24,23 @@ body {
 .current-time h1 {
     font-size: 2.5em;
     color: #333;
-    margin-bottom: 20px;
+    margin-bottom: 10px; 
+}
+
+.current-time p {
+    font-size: 1.5em; 
+    margin-bottom: 15px;
+}
+
+.current-time button {
+    padding: 10px 20px; 
+    font-size: 1.1em;
+    background-color: #007BFF; 
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 15px;
 }
 
 /* 타이머와 스톱워치 섹션 */
