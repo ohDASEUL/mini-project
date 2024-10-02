@@ -62,5 +62,12 @@ function operateTimer() {
         tenMills = 0
         stopwatchTenMills.textContent = "00"
     }
+    
+    if(seconds > 59){
+        minutes++
+        stopwatchMinutes.textContent = minutes
+        seconds = 0
+        stopwatchSeconds.textContent = "00" 
+    }
 }
 
