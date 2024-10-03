@@ -53,8 +53,44 @@ const timerSeconds = document.querySelector(
   '.time-inputs input[placeholder="초"]'
 );
 
+let totalSeconds = 0;
+let interval;
+
 const timerStart = document.querySelector(".timer-controls #start");
 const timerReset = document.querySelector(".timer-controls #reset");
+
+timerStart.onclick = function () {
+  let timerHoursInput = parseInt(timerHour.value) || 0;
+  let timerMinutesInput = parseInt(timerMinutes.value) || 0;
+  let timerSecondsInput = parseInt(timerSeconds.value) || 0;
+
+  clearInterval(interval);
+  totalSeconds =
+    timerHoursInput * 3600 + timerMinutesInput * 60 + timerSecondsInput;
+
+  interval = setInterval(function () {
+    totalSeconds--;
+    if (totalSeconds <= 0) {
+      clearInterval(interval);
+    }
+
+    let displayHours = Math.floor(totalSeconds / 3600);
+    let displayMinutes = Math.floor((totalSeconds % 3600) / 60);
+    let displaySeconds = totalSeconds % 60;
+
+    timerHour.value = displayHours;
+    timerMinutes.value = displayMinutes;
+    timerSeconds.value = displaySeconds;
+  }, 1000);
+};
+
+timerReset.onclick = function () {
+    clearInterval(interval);
+    timerHour.value = "시";
+    timerMinutes.value = "분";
+    timerSeconds.value = "초";
+    totalSeconds = 0;
+  };
 
 thirtySeconds.onclick = function () {
   let currentSeconds = parseInt(timerSeconds.value) || 0;
@@ -172,11 +208,7 @@ oneHour.onclick = function () {
   timerHour.value = currentHours;
 };
 
-timerReset.onclick = function () {
-  timerHour.value = "시";
-  timerMinutes.value = "분";
-  timerSeconds.value = "초";
-};
+
 
 // stopwatch 부분
 let minutes = 0;
