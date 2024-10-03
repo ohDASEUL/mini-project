@@ -17,18 +17,21 @@
         <div class="timer">
           <h2>타이머</h2>
           <div class="time-inputs">
-            <input type="number" placeholder="시" min="0" max="23" />
+            <input type="number" placeholder="시" min="0" max="59" />
             <input type="number" placeholder="분" min="0" max="59" />
             <input type="number" placeholder="초" min="0" max="59" />
           </div>
           <div class="quick-timers">
-            <button>5분</button>
-            <button>10분</button>
-            <button>30분</button>
+            <button id="thirtySeconds">30초</button>
+            <button id="oneMinutes">1분</button>
+            <button id="fiveMinutes">5분</button>
+            <button id="tenMinutes">10분</button>
+            <button id="thirtyMinutes">30분</button>
+            <button id="oneHour">1시간</button>
           </div>
           <div class="timer-controls">
-            <button>시작</button>
-            <button>리셋</button>
+            <button id="start">시작</button>
+            <button id="reset">리셋</button>
           </div>
         </div>
 
