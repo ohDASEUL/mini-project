@@ -283,6 +283,26 @@ document.getElementById('set-alarm').addEventListener('click', function() {
   alarmInterval = setInterval(checkAlarms, 1000);
 });
 
+// 알람 수정
+document.getElementById('modify-alarm').addEventListener('click', function() {
+  const selectedIndex = getSelectedAlarmIndex();
+
+  if (selectedIndex === -1) {
+    alert('수정할 알람을 선택하세요.');
+    return;
+  }
+  
+  const newTime = document.getElementById('alarm-time').value;
+  if (!newTime) {
+    alert('새로운 알람 시간을 설정하세요.');
+    return;
+  }
+  
+  alarmList[selectedIndex] = newTime;
+  updateAlarmList();
+});
+
+// 알람 목록 업데이트
 function updateAlarmList() {
   const tbody = document.querySelector('#alarm-list tbody');
   tbody.innerHTML = '';
@@ -306,4 +326,10 @@ function updateAlarmList() {
     
     tbody.appendChild(row);
   });
+}
+
+// 선택된 알람의 인덱스 가져오기
+function getSelectedAlarmIndex() {
+  const selectedChecked = document.querySelector('input[name="selected-alarm"]:checked');
+  return selectedChecked ? parseInt(selectedChecked.value) : -1;
 }
