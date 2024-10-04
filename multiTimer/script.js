@@ -343,3 +343,22 @@ function getSelectedAlarmIndex() {
   const selectedChecked = document.querySelector('input[name="selected-alarm"]:checked');
   return selectedChecked ? parseInt(selectedChecked.value) : -1;
 }
+
+// 알람 체크
+function checkAlarms() {
+  const currentTime = new Date().toTimeString().slice(0, 5); // 현재 시간 (HH:MM)
+  
+  alarmList.forEach(alarm => {
+    if (currentTime === alarm) {
+      triggerVisualAlarm();
+    }
+  });
+}
+
+// 시각적 알람
+function triggerVisualAlarm() {
+  document.body.style.backgroundColor = 'red';
+  setTimeout(() => {
+    document.body.style.backgroundColor = '';
+  }, 500);
+}
