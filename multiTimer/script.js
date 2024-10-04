@@ -208,8 +208,6 @@ oneHour.onclick = function () {
   timerHour.value = currentHours;
 };
 
-
-
 // stopwatch 부분
 let minutes = 0;
 let seconds = 0;
@@ -262,3 +260,16 @@ function operateTimer() {
     stopwatchSeconds.textContent = "00";
   }
 }
+
+// 알람 부분
+let alarmTime = null;
+let alarmInterval = null;
+
+// 알람 등록
+document.getElementById('set-alarm').addEventListener('click', function() {
+  const inputTime = document.getElementById('alarm-time').value;
+  if(!inputTime){
+    alert('알람 시간을 설정하세요')
+    return
+  }
+});

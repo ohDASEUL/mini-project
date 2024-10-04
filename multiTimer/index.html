@@ -50,7 +50,13 @@
 
       <div class="alarm">
         <h2>알람</h2>
-        <input type="time" />
+        <input type="time" id="alarm-time" />
+        <div class="alarm-controls">
+          <button id="set-alarm">알람 등록</button>
+          <button id="modify-alarm">알람 수정</button>
+          <button id="delete-alarm">알람 삭제</button>
+        </div>
+        <p id="alarm-status"></p>
       </div>
     </div>
     <script src="script.js"></script>
