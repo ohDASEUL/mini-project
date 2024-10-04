@@ -262,7 +262,7 @@ function operateTimer() {
 }
 
 // 알람 부분
-let alarmTime = null;
+let alarmList = [];
 let alarmInterval = null;
 
 // 알람 등록
@@ -272,23 +272,38 @@ document.getElementById('set-alarm').addEventListener('click', function() {
     alert('알람 시간을 설정하세요')
     return
   }
-  alarmTime = inputTime
-  document.getElementById("alarm-status").innerText = `알람이 ${alarmTime}에 설정되었습니다.`;
-});
-
-// 알람 수정
-document.getElementById('modify-alarm').addEventListener('click', function() {
-  const inputTime = document.getElementById('alarm-time').value;
-  if(!inputTime){
-    alert("수정할 알람 시간을 설정하세요.");
-    return
+  alarmList.push(inputTime)
+  updateAlarmList()
+  
+  if(alarmInterval){
+    clearInterval(alarmInterval)
   }
-  alarmTime = inputTime;
-  document.getElementById("alarm-status").innerText = `알람이 ${alarmTime}로 수정되었습니다.`;
+
+  // 알람 체크 시작
+  alarmInterval = setInterval(checkAlarms, 1000);
 });
 
-document.getElementById("delete-alarm").addEventListener("click", function () {
-  clearInterval(alarmInterval);
-  alarmTime = null;
-  document.getElementById("alarm-status").innerText = "알람이 삭제되었습니다.";
-});
+function updateAlarmList() {
+  const tbody = document.querySelector('#alarm-list tbody');
+  tbody.innerHTML = '';
+
+  alarmList.forEach((time,index) => {
+    const row = document.createElement('tr');
+
+    const checkboxCell = document.createElement('td');
+    const checkbox = document.createElement('input');
+
+    checkbox.type = 'checkbox';
+    checkbox.name = 'selected-alarm';
+    checkbox.value = index;
+    checkboxCell.appendChild(checkbox);
+
+    const timeCell = document.createElement('td');
+    timeCell.textContent = time;
+    
+    row.appendChild(checkboxCell);
+    row.appendChild(timeCell);
+    
+    tbody.appendChild(row);
+  });
+}
