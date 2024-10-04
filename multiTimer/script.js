@@ -272,4 +272,6 @@ document.getElementById('set-alarm').addEventListener('click', function() {
     alert('알람 시간을 설정하세요')
     return
   }
+  alarmTime = inputTime
+  document.getElementById("alarm-status").innerText = `알람이 ${alarmTime}에 설정되었습니다.`;
 });
