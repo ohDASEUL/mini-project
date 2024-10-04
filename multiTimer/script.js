@@ -302,6 +302,16 @@ document.getElementById('modify-alarm').addEventListener('click', function() {
   updateAlarmList();
 });
 
+document.getElementById('delete-alarm').addEventListener('click', function () {
+  const selectedIndex = getSelectedAlarmIndex();
+  if(selectedIndex === -1){
+    alert('삭제할 알람을 선택하세요')
+    return
+  }
+  alarmList.splice(selectedIndex, 1)
+  updateAlarmList()
+});
+
 // 알람 목록 업데이트
 function updateAlarmList() {
   const tbody = document.querySelector('#alarm-list tbody');
