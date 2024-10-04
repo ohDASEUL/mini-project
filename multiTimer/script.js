@@ -281,6 +281,9 @@ document.getElementById('set-alarm').addEventListener('click', function() {
 
   // 알람 체크 시작
   alarmInterval = setInterval(checkAlarms, 1000);
+
+  // 입력 필드 초기화
+  document.getElementById('alarm-time').value = '';
 });
 
 // 알람 수정
@@ -300,8 +303,12 @@ document.getElementById('modify-alarm').addEventListener('click', function() {
   
   alarmList[selectedIndex] = newTime;
   updateAlarmList();
+
+  // 입력 필드 초기화
+  document.getElementById('alarm-time').value = '';
 });
 
+// 알람 삭제
 document.getElementById('delete-alarm').addEventListener('click', function () {
   const selectedIndex = getSelectedAlarmIndex();
   if(selectedIndex === -1){
@@ -310,6 +317,9 @@ document.getElementById('delete-alarm').addEventListener('click', function () {
   }
   alarmList.splice(selectedIndex, 1)
   updateAlarmList()
+
+  // 입력 필드 초기화
+  document.getElementById('alarm-time').value = '';
 });
 
 // 알람 목록 업데이트
