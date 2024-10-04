@@ -275,3 +275,14 @@ document.getElementById('set-alarm').addEventListener('click', function() {
   alarmTime = inputTime
   document.getElementById("alarm-status").innerText = `알람이 ${alarmTime}에 설정되었습니다.`;
 });
+
+// 알람 수정
+document.getElementById('modify-alarm').addEventListener('click', function() {
+  const inputTime = document.getElementById('alarm-time').value;
+  if(!inputTime){
+    alert("수정할 알람 시간을 설정하세요.");
+    return
+  }
+  alarmTime = inputTime;
+  document.getElementById("alarm-status").innerText = `알람이 ${alarmTime}로 수정되었습니다.`;
+});
