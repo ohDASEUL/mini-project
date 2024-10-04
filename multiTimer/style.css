@@ -163,11 +163,21 @@ h2 {
 }
 
 /* 알람 */
-.alarm {
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+#alarm-list {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+}
+
+#alarm-list th,
+#alarm-list td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+#alarm-list th {
+  background-color: #f4f4f9;
 }
 
 .alarm input {
