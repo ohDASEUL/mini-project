@@ -286,3 +286,9 @@ document.getElementById('modify-alarm').addEventListener('click', function() {
   alarmTime = inputTime;
   document.getElementById("alarm-status").innerText = `알람이 ${alarmTime}로 수정되었습니다.`;
 });
+
+document.getElementById("delete-alarm").addEventListener("click", function () {
+  clearInterval(alarmInterval);
+  alarmTime = null;
+  document.getElementById("alarm-status").innerText = "알람이 삭제되었습니다.";
+});
