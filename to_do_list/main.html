@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>할 일 관리</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="main-header">
+        <h1 id="할-일-관리" class="main-title">할 일 관리</h1>
+        <button class="system_mode">
+            <img src="./icon/dark.svg" alt="Dark Mode Toggle">
+        </button>
+    </header>
+
+    <div class="content-wrapper">
+        <div class="calendar-section">
+            <div class="calendar">
+                <div class="calendar-header">
+                    <div class="year-month"></div>
+                    <div class="nav">
+                        <button class="nav-btn" id="prevBtn">&lt;</button>
+                        <button class="nav-btn" id="todayBtn">오늘</button>
+                        <button class="nav-btn" id="nextBtn">&gt;</button>
+                    </div>
+                </div>
+                <div class="day-main">
+                    <div class="days">
+                        <div class="day">월</div>
+                        <div class="day">화</div>
+                        <div class="day">수</div>
+                        <div class="day">목</div>
+                        <div class="day">금</div>
+                        <div class="day">토</div>
+                        <div class="day">일</div>
+                    </div>
+                    <div class="dates"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="todo-section">
+            <h2>오늘의 할 일</h2>
+            <ul class="todolist">
+                <!-- 여기에 JavaScript로 동적으로 할 일 항목들이 추가됩니다 -->
+            </ul>
+        </div>
+    </div>
+
+    <button class="todo-write-button">
+        <img src="icon/light_plus.svg" alt="Add Todo">
+    </button>
+
+    <div id="dateModal" class="modal">
+        <div class="modal-content">
+            <h2 id="modalDate"></h2>
+            <div class="progress-container">
+                <div id="progressBar" class="progress-bar"></div>
+                <span id="progressText" class="progress-text"></span>
+            </div>
+            <div class="todo-sections">
+                <div class="todo-section">
+                    <h3>완료된 할 일</h3>
+                    <div id="completedTodos"></div>
+                </div>
+                <div class="todo-section">
+                    <h3>미완료된 할 일</h3>
+                    <div id="incompleteTodos"></div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button id="copyTodayBtn" class="modal-btn primary">오늘로 복사하기</button>
+                <button id="closeModalBtn" class="modal-btn">닫기</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
